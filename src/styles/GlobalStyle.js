@@ -1,4 +1,21 @@
-/* reset css */
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  background: #000;
+  color: #202121;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+}
+
+.strong {
+  font-weight: 700;
+}
+
 html,
 body,
 div,
@@ -123,10 +140,13 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-​ a {
+​a {
   color: inherit;
   text-decoration: none;
 }
-​ * {
+​* {
   box-sizing: border-box;
 }
+`;
+
+export default GlobalStyle;

@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from './Router';
 
-import './index.scss';
+import GlobalStyle from './styles/GlobalStyle';
 
-ReactDOM.render(<Router />, document.getElementById('root'));
+ReactDOM.render(
+  <GlobalStyle>
+    <Router />
+  </GlobalStyle>,
+  document.getElementById('root')
+);
