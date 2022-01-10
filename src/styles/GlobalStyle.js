@@ -1,10 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
-${reset}
 body {
   width: 100vw;
   height: 100vh;
