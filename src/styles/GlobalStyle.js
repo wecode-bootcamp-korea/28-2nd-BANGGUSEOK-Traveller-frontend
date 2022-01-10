@@ -7,7 +7,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
-  background: #000;
+  // background: #000;
   color: #202121;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
@@ -102,7 +102,6 @@ video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
