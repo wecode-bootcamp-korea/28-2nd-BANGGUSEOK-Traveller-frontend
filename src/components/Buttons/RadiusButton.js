@@ -16,7 +16,7 @@ import {
 import styled from 'styled-components';
 
 const BUTTONTYPE_OBJ = {
-  visitsite: 'fillColor',
+  VisitSite: 'fillColor',
   collect: 'hoverEffect',
 };
 
@@ -58,12 +58,15 @@ const Components = styled.button`
     return props.propColor.includes('Icon') ? 'white' : 'black';
   }};
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 0 10px;
+  // padding: 0 10px;
+  width: 20px;
   height: 20px;
-  border-radius: 34px;
-  border-color: #202121;
+  border-radius: 50%;
+  border-color: #fff;
   background-color: transparent;
+  color: #fff;
 
   &:hover {
     color: #49c5b6;

@@ -23,18 +23,41 @@ const TripCardGellery = styled.section`
   color: #fff;
 
   &:hover {
-    > div {
+    > div,
+    button {
       opacity: 1;
     }
 
     ${TripCardGelleryImg} {
       transform: scale(1.2);
       transition: transform 0.5s ease;
+      filter: brightness(50%);
     }
+
+    > button {
+      z-index: 0;
+      color: #fff;
+    }
+  }
+
+  > button {
+    opacity: 0;
+  }
+
+  > button:nth-of-type(1) {
+    position: absolute;
+    right: 20px;
+    top: 20px;
   }
 
   > div {
     opacity: 0;
+  }
+
+  > button:last-of-type {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
   }
 `;
 
@@ -45,38 +68,18 @@ const TripCardGellerySocial = styled.div`
   display: flex;
 `;
 
-// RadiusButton merge 후 버튼이 잘 나타나지 않을 경우 참고하기위해 주석처리
-// const TripCardGelleryCollect = styled.div`
-//   position: absolute;
-//   padding: 10px;
-//   right: 20px;
-//   top: 20px;
-//   border-radius: 20px;
-//   border: 1px solid #fff;
-// `;
-
-// const TripCardGelleryVote = styled.div`
-//   z-index: 1;
-//   padding: 15px;
-//   border-radius: 40px;
-//   background: #fff;
-//   color: #000;
-// `;
-
-const TripCardGelleryShare = styled.div`
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid #fff;
+const VoteButton = styled.div`
+  z-index: 1;
+  padding: 15px;
+  border-radius: 40px;
+  background: #fff;
+  color: #000;
 `;
 
+const TripCardGelleryShare = styled.div``;
+
 const TripCardDescription = styled.section`
+  position: relative;
   padding: 20px;
 `;
 
@@ -85,15 +88,14 @@ const TripCardDescriptionTitle = styled.p`
   font-size: 14px;
 `;
 
-const TripCardDescriptionLocation = styled.p`
-  position: relative;
-  margin-bottom: 26px;
-  font-size: 14px;
-`;
-
 const TripCardDescriptionDate = styled.span`
   position: absolute;
-  right: 0;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #f5f7f6;
+  font-size: 12px;
 `;
 
 const TripCardDescriptionAuthor = styled.div`
@@ -101,7 +103,6 @@ const TripCardDescriptionAuthor = styled.div`
   align-items: center;
   padding-top: 10px;
   border-top: 1px solid #f5f7f6;
-  background: white;
   font-size: 12px;
 `;
 
@@ -115,9 +116,9 @@ export {
   TripCardDescription,
   TripCardGelleryImg,
   TripCardGellerySocial,
+  VoteButton,
   TripCardGelleryShare,
   TripCardDescriptionTitle,
-  TripCardDescriptionLocation,
   TripCardDescriptionDate,
   TripCardDescriptionAuthor,
   TripCardDescriptionAuthorUserId,

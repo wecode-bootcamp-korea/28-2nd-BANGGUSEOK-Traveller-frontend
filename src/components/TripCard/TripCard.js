@@ -5,29 +5,18 @@ import {
   TripCardGelleryImg,
   TripCardDescription,
   TripCardGellerySocial,
-  TripCardGelleryShare,
+  VoteButton,
   TripCardDescriptionTitle,
-  TripCardDescriptionLocation,
   TripCardDescriptionDate,
   TripCardDescriptionAuthor,
   TripCardDescriptionAuthorUserId,
 } from './TripCardStyles';
 
-const cardMockData = {
-  img_url:
-    'https://images.unsplash.com/profile-1446404465118-3a53b909cc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=128&w=128&s=27a346c2362207494baa7b76f5d606e5',
-  is_vote: true,
-  title: '여행지 추천드립니다~',
-  location: '슈투트가르트',
-  date: '2022.01.11',
-  user_id: '유저아이디',
-};
-
-export default function TripCard() {
+export default function TripCard({ listItem }) {
   return (
     <TripCardDiv>
       <TripCardGellery>
-        <TripCardGelleryImg src={cardMockData.img_url} alt="갤러리" />
+        <TripCardGelleryImg src={listItem.main_image} alt="갤러리" />
         <TripCardGellerySocial>
           <RadiusButton buttonType="faceBookIcon" />
           <RadiusButton buttonType="twitterIcon" />
@@ -35,23 +24,18 @@ export default function TripCard() {
           <RadiusButton buttonType="linkedinIcon" />
         </TripCardGellerySocial>
         <RadiusButton buttonType="Collect" />
-        {cardMockData.is_vote ? <RadiusButton buttonType="VOTE NOW" /> : null}
-        <TripCardGelleryShare>
-          <RadiusButton buttonType="siteIcon" />
-        </TripCardGelleryShare>
+        <VoteButton>Vote Now</VoteButton>
+        <RadiusButton buttonType="siteIcon" />
       </TripCardGellery>
       <TripCardDescription>
         <TripCardDescriptionTitle>
-          {cardMockData.title}
+          {listItem.product_name}
         </TripCardDescriptionTitle>
-        <TripCardDescriptionLocation>
-          {cardMockData.location}
-          <TripCardDescriptionDate>{cardMockData.date}</TripCardDescriptionDate>
-        </TripCardDescriptionLocation>
+        <TripCardDescriptionDate>{listItem.created_at}</TripCardDescriptionDate>
         <TripCardDescriptionAuthor>
           BY
           <TripCardDescriptionAuthorUserId>
-            {cardMockData.user_id}
+            {listItem.user}
           </TripCardDescriptionAuthorUserId>
         </TripCardDescriptionAuthor>
       </TripCardDescription>
