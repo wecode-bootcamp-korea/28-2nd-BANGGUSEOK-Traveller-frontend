@@ -1,13 +1,16 @@
-import { cn, cond } from '../../customlib/classNameToggle';
-
 import {
   PaginationWrapper,
   PaginationContainer,
   PaginationBtn,
   PaginationABtn,
+  PaginationNextBtn,
 } from './PaginationButtonsStyle';
 
-export default function PaginationButtons({ nowLocation, paginateData }) {
+export default function PaginationButtons({
+  nowLocation,
+  paginateData,
+  getEachQuery,
+}) {
   const isMoreThanFivePaginate = nowLocation >= 5 && paginateData.length > 5;
 
   const mappingPaginationData = paginateData.filter((item, index) => {
@@ -33,8 +36,8 @@ export default function PaginationButtons({ nowLocation, paginateData }) {
             ) : (
               <PaginationABtn
                 key={item.id}
-                href={`?page=${item.id}`}
-                className={cn('item', cond(isActive, 'active'))}
+                isActive={isActive}
+                onClick={e => getEachQuery(e, 'page')}
               >
                 {item.id}
               </PaginationABtn>
@@ -42,8 +45,9 @@ export default function PaginationButtons({ nowLocation, paginateData }) {
           ) : (
             <PaginationABtn
               key={item.id}
-              href={`?page=${item.id}`}
-              className={cn('item', cond(isActive, 'active'))}
+              name={item.id}
+              isActive={isActive}
+              onClick={e => getEachQuery(e, 'page')}
             >
               {item.id}
             </PaginationABtn>
@@ -52,9 +56,12 @@ export default function PaginationButtons({ nowLocation, paginateData }) {
       </PaginationContainer>
       <PaginationContainer>
         {nowLocation !== paginateData.length ? (
-          <PaginationABtn className="more" href={`?page=${nowLocation + 1}`}>
+          <PaginationNextBtn
+            name={nowLocation + 1}
+            onClick={e => getEachQuery(e, 'page')}
+          >
             SHOW ME MORE
-          </PaginationABtn>
+          </PaginationNextBtn>
         ) : (
           ''
         )}
