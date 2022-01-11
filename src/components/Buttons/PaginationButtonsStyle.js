@@ -5,7 +5,7 @@ const PaginationWrapper = styled.div`
   justify-content: space-between;
   height: 60px;
   clear: both;
-  margin: 35px 0;
+  padding: 35px 0;
   font-size: 16px;
   overflow: hidden;
 `;
@@ -25,32 +25,28 @@ const PaginationBtn = styled.span`
   background-color: #fff;
   color: #202121;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 `;
 
 const PaginationABtn = styled(PaginationBtn.withComponent('a'))`
   text-decoration: none;
+  background-color: ${props => (props.isActive ? '#999' : '#fff')};
 
-  &.item {
-    background-color: #fff;
-
-    &:hover {
-      background-color: #bbb;
-    }
-  }
-
-  &.more {
-    width: 100%;
-    background-color: #000;
-    color: #fff;
-  }
-
-  &.active {
-    background-color: #999;
+  &:hover {
+    background-color: #bbb;
   }
 `;
+
+const PaginationNextBtn = styled(PaginationBtn.withComponent('a'))`
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+`;
+
 export {
   PaginationWrapper,
   PaginationContainer,
   PaginationBtn,
   PaginationABtn,
+  PaginationNextBtn,
 };
