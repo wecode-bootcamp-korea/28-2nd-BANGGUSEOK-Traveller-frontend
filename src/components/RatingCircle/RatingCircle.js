@@ -28,7 +28,6 @@ export default function RatingCircle({ type, rate, circleId }) {
           cy="41"
           cx="41"
           strokeColor={typeStrokeColor[type]}
-          className="circle-progress"
           dashOffset={dashOffset}
           circleId={circleId}
           type={type}
