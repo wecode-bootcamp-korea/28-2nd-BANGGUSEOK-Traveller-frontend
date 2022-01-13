@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faInstagram,
@@ -9,6 +9,12 @@ import './Nav.scss';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export default function Nav() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const handleSearchOpen = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
   return (
     <>
       <div className="firstNav">
@@ -27,7 +33,7 @@ export default function Nav() {
         </div>
         <div className="rightBox">
           <div className="search">
-            <FontAwesomeIcon icon={faSearch} />
+            <FontAwesomeIcon icon={faSearch} onClick={handleSearchOpen} />
           </div>
           <div className="itemLogin">
             <span>Are you a member?</span>
@@ -35,7 +41,7 @@ export default function Nav() {
           </div>
           <div className="SubmitButton">SUBMIT YOUR SITE!</div>
         </div>
-        <div className="searchContainer">
+        <div className={`searchContainer ${isSearchOpen ? 'active' : ''}`}>
           <div className="searchBox">
             <input
               type="text"
@@ -45,7 +51,9 @@ export default function Nav() {
             <div className="filter">
               <strong>SHOW FILTERS</strong>
             </div>
-            <div className="btClose">X</div>
+            <div className="btClose" onClick={handleSearchOpen}>
+              X
+            </div>
           </div>
         </div>
         <div className="logo">BANGGUSEOK Traveller</div>
