@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import WithNav from './components/NavOutlet/WithNav';
 import WithoutNav from './components/NavOutlet/WithoutNav';
 import Main from './pages/Main/Main';
-import TripList from './pages/TripList/TripList';
 import TripDetail from './pages/TripDetail/TripDetail';
+import FilterListContainer from './pages/TripFilterLists/FilterListContainer';
 import NotFound from './components/NotFound/NotFound';
 import KakaoRequest from './components/Kakao/KakaoRequest';
 
@@ -19,8 +19,8 @@ export default function Router() {
         <Routes>
           <Route element={<WithNav />}>
             <Route path="/" element={<Main />} />
-            <Route path="/TripList" element={<TripList />} />
-            <Route path="/TripDetail" element={<TripDetail />} />
+            <Route path="/filter" element={<FilterListContainer />} />
+            <Route path="/tripdetail" element={<TripDetail />} />
           </Route>
 
           <Route element={<WithoutNav />}>
