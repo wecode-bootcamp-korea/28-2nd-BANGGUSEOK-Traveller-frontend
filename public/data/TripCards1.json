@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "name": "나의 게시물",
+    "category": "conti"
+  },
+  {
+    "id": "2",
+    "name": "너의 게시물",
+    "category": "conti"
+  },
+  {
+    "id": "3",
+    "name": "우리의 게시물",
+    "category": "area"
+  },
+  {
+    "id": "4",
+    "name": "모두의 게시물",
+    "category": "eval"
+  },
+  {
+    "id": "5",
+    "name": "그들의 게시물",
+    "category": "feeling"
+  },
+  {
+    "id": "6",
+    "name": "그들의 게시물",
+    "category": "feeling"
+  },
+  {
+    "id": "7",
+    "name": "그들의 게시물",
+    "category": "feeling"
+  },
+  {
+    "id": "8",
+    "name": "그들의 게시물",
+    "category": "feeling"
+  },
+  {
+    "id": "9",
+    "name": "그들의 게시물",
+    "category": "feeling"
+  },
+  {
+    "id": "10",
+    "name": "나의 게시물",
+    "category": "conti"
+  },
+  {
+    "id": "11",
+    "name": "너의 게시물",
+    "category": "conti"
+  },
+  {
+    "id": "12",
+    "name": "우리의 게시물",
+    "category": "area"
+  },
+  {
+    "id": "13",
+    "name": "모두의 게시물",
+    "category": "eval"
+  },
+  {
+    "id": "14",
+    "name": "그들의 게시물",
+    "category": "feeling"
+  },
+  {
+    "id": "15",
+    "name": "그들의 게시물",
+    "category": "feeling"
+  },
+  {
+    "id": "16",
+    "name": "그들의 게시물",
+    "category": "feeling"
+  },
+  {
+    "id": "17",
+    "name": "그들의 게시물",
+    "category": "feeling"
+  },
+  {
+    "id": "18",
+    "name": "그들의 게시물",
+    "category": "feeling"
+  }
+]

@@ -31,7 +31,6 @@ const PaginationBtn = styled.span`
 const PaginationABtn = styled(PaginationBtn.withComponent('a'))`
   text-decoration: none;
   background-color: ${props => (props.isActive ? '#999' : '#fff')};
-
   &:hover {
     background-color: #bbb;
   }
