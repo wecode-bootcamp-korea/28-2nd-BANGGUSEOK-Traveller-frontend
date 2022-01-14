@@ -1,0 +1,136 @@
+footer {
+  background-color: #fcfcfc;
+  bottom: 0;
+
+  .topFooter {
+    padding: 70px 0;
+
+    .topWrapper {
+      display: flex;
+      justify-content: space-between;
+      padding-left: 66px;
+      padding-right: 66px;
+    }
+
+    .topLeftBox {
+      width: 30%;
+      flex: 1;
+
+      .strongBox {
+        width: 520px;
+        margin-bottom: 25px;
+
+        strong {
+          font-size: 18px;
+          font-family: 'apercu', sans-serif;
+          font-weight: 400;
+        }
+      }
+
+      .site {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+
+        li {
+          margin-right: 20px;
+          font-size: 14px;
+          font-family: 'apercu', sans-serif;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+
+          #directory {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            margin-left: 5px;
+            background-color: #fef7c1;
+            border-radius: 50%;
+          }
+
+          #jobs {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            margin-left: 5px;
+            background-color: #9ceade;
+            border-radius: 50%;
+          }
+        }
+      }
+      .links {
+        display: flex;
+
+        li {
+          margin-right: 10px;
+          font-size: 14px;
+          font-family: 'apercu', sans-serif;
+          &:nth-child(1) {
+            font-weight: bolder;
+          }
+        }
+      }
+    }
+
+    .topRightBox {
+      .innerBox {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 35px;
+
+        svg {
+          padding: 0 10px 0 10px;
+        }
+      }
+    }
+  }
+
+  .bottomFooter {
+    width: 100%;
+    height: 100%;
+    padding-top: 25px;
+    border-top: 1px solid #e6eaea;
+
+    .inner {
+      display: flex;
+      justify-content: space-between;
+      padding-left: 66px;
+      padding-right: 66px;
+
+      .innerLeftBox {
+        flex: 1;
+        width: 100%;
+
+        .information {
+          display: flex;
+          align-items: center;
+          margin-bottom: 25px;
+          font-size: 14px;
+          font-family: 'apercu', sans-serif;
+
+          li {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            line-height: 24px;
+
+            img {
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+      .innerRightBox {
+        p {
+          font-size: 14px;
+          font-family: 'apercu', sans-serif;
+        }
+      }
+    }
+  }
+}
