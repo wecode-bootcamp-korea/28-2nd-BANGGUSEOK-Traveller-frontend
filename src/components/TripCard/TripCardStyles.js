@@ -66,6 +66,10 @@ const TripCardGellerySocial = styled.div`
   left: 20px;
   top: 20px;
   display: flex;
+
+  > button {
+    margin-right: 5px;
+  }
 `;
 
 const VoteButton = styled.div`

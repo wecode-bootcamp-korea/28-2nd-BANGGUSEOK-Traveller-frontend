@@ -7,10 +7,10 @@
       "created_at": "2022년 1월 17일",
       "user": "user1",
       "location": "FRANCE",
-      "scores": [
-        { "type": "design", "rate": 82, "circleId": 0 },
-        { "type": "usability", "rate": 71, "circleId": 1 },
-        { "type": "creativity", "rate": 95, "circleId": 2 }
+      "score": [
+        { "sensibility": "1.500000" },
+        { "intent_to_visit": "2.500000" },
+        { "impresstion_on_picture": "9.100000" }
       ]
     }
   },

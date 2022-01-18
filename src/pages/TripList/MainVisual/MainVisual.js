@@ -20,7 +20,6 @@ import {
   MainVisualJuriesList,
   MainVisualJury,
 } from './MainVisualStyles';
-
 export default function MainVisual({ mainVisualData }) {
   return (
     <MainVisualDiv>
@@ -43,29 +42,27 @@ export default function MainVisual({ mainVisualData }) {
               </MainVisualMainInformationUserId>{' '}
               WITH{' '}
               <MainVisualMainInformationStrong>
-                {mainVisualData &&
-                  Math.round(
-                    mainVisualData.product.score.reduce(
-                      (acc, curr) => acc + curr.rate,
-                      0
-                    ) / mainVisualData.product.score.length
-                  ) / 10}
+                {(
+                  mainVisualData.product.score.reduce(
+                    (acc, curr) => acc + Number(Object.values(curr)[0]),
+                    0
+                  ) / mainVisualData.product.score.length
+                ).toFixed(2)}
               </MainVisualMainInformationStrong>
             </MainVisualMainInformation>
             <MainVisualMainGauges>
-              {mainVisualData &&
-                mainVisualData.product.score.map((division, index) => (
-                  <MainVisualMainGauge key={index}>
-                    <RatingCircle
-                      type={division.type}
-                      rate={division.rate}
-                      circleId={index}
-                    />
-                    <MainVisualMainGaugeLable>
-                      {division.type}
-                    </MainVisualMainGaugeLable>
-                  </MainVisualMainGauge>
-                ))}
+              {mainVisualData.product.score.map((singleScore, index) => (
+                <MainVisualMainGauge key={index}>
+                  <RatingCircle
+                    type={Object.keys(singleScore)[0]}
+                    rate={Number(Object.values(singleScore)[0] * 10)}
+                    circleId={index}
+                  />
+                  <MainVisualMainGaugeLable>
+                    {Object.keys(singleScore)[0]}
+                  </MainVisualMainGaugeLable>
+                </MainVisualMainGauge>
+              ))}
             </MainVisualMainGauges>
           </MainVisualMain>
           <MainVisualBottomMenu>
