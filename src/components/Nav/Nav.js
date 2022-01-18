@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import NavSidebar from './NavSidebar';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faInstagram,
@@ -19,6 +20,12 @@ export default function Nav() {
 
   const handleSideBarOpen = () => {
     setIsSideBarOpen(!isSideBarOpen);
+  };
+
+  const navigate = useNavigate();
+
+  const goToMain = () => {
+    navigate('/');
   };
 
   return (
@@ -64,7 +71,9 @@ export default function Nav() {
               </div>
             </div>
           </div>
-          <div className="logo">BANGGUSEOK Traveller</div>
+          <div className="logo" onClick={goToMain}>
+            BANGGUSEOK Traveller
+          </div>
         </header>
       </div>
     </div>
