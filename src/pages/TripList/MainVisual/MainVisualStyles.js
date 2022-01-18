@@ -42,16 +42,6 @@ const MainVisualDate = styled.span`
   font-weight: 300;
 `;
 
-// 버튼 import가 잘 안될 경우 참고하기 위해 주석처리
-// const MainVisualRightTopButton = styled.button`
-//   position: absolute;
-//   right: 66px;
-//   top: 66px;
-//   width: 34px;
-//   height: 34px;
-//   border-radius: 50%;
-// `;
-
 const MainVisualMain = styled.div`
   z-index: 1;
   display: flex;
