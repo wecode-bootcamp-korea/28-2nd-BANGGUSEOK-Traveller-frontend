@@ -4,7 +4,7 @@ export default function KakaoLogin() {
   return (
     <KakaoWrapper>
       <KakaoLoginContainer>
-        <KakaoIntroduce>Welcome to 방구석 Traveller!</KakaoIntroduce>
+        <KakaoIntroduce>WELCOME TO BANGGUSEOK Traveller</KakaoIntroduce>
         <KakaoLoginBtn href={process.env.REACT_APP_KAKAO_LOGIN_URL}>
           <KakaoImg />
         </KakaoLoginBtn>
@@ -14,26 +14,21 @@ export default function KakaoLogin() {
 }
 
 const KakaoWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  padding: 10%;
 `;
 
 const KakaoLoginContainer = styled.div`
   position: relative;
   text-align: center;
-  bottom: 10%;
-  border: 5px solid #999;
-  border-radius: 60%;
-  padding: 100px;
 `;
 
 const KakaoIntroduce = styled.div`
-  height: 50px;
+  font-weight: 700;
+  height: 100px;
 `;
 
 const KakaoLoginBtn = styled.a`

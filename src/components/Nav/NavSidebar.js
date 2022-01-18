@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
+import { AuthContext } from '../../Router';
+
 import './NavSidebar.scss';
 
-export default function NavSidebar({ handleSideBarOpen }) {
+export default function NavSidebar({ handleSideBarOpen, toggleModal }) {
+  const { userToken } = useContext(AuthContext);
+
   return (
     <div className="containerWrapper">
       <div className="container">
@@ -24,8 +29,20 @@ export default function NavSidebar({ handleSideBarOpen }) {
             </div>
           </div>
           <ul className="links">
-            {SIDE_DATA.map(list => {
-              return (
+            {SIDE_DATA.map((list, index) => {
+              return index === 0 ? (
+                !userToken && (
+                  <li
+                    key={list.id}
+                    onClick={() => {
+                      toggleModal();
+                      handleSideBarOpen();
+                    }}
+                  >
+                    <a href="#!">{list.content}</a>
+                  </li>
+                )
+              ) : (
                 <li key={list.id}>
                   <a href={list.address}>{list.content}</a>
                 </li>
