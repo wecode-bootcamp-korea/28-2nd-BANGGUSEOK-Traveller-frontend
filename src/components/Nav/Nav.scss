@@ -8,6 +8,10 @@
     transform: translateX(320px);
   }
 
+  &.active ~ footer {
+    opacity: 0.2;
+  }
+
   .navWrapper {
     &.active {
       opacity: 0.2;
@@ -130,6 +134,7 @@
             font-weight: 600;
             font-size: 13px;
             font-family: 'apercu', sans-serif;
+            cursor: pointer;
           }
         }
 

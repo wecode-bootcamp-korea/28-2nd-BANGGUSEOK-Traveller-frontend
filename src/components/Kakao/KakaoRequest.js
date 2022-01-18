@@ -1,19 +1,48 @@
-import { useEffect } from 'react';
+import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
 import qs from 'qs';
 
+import { AuthContext } from '../../Router';
 import { Kakao } from './OAuth';
 
 Kakao.init(process.env.REACT_APP_JS_APIKEY);
 
 export default function KakaoRequest() {
+  const { setUserToken } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const location = useLocation();
   const requestCode = qs.parse(location.search, {
     ignoreQueryPrefix: true,
   }).code;
 
-  const getAccessToken = async () => {
+  const errorRoute = () => {
+    alert('로그인에 실패하였습니다.');
+    navigate('/');
+  };
+
+  const successRoute = () => {
+    setUserToken(localStorage.getItem('bangguseokToken'));
+    navigate('/');
+  };
+
+  const goAuthOurService = async (data, userType) => {
+    Kakao.Auth.setAccessToken(data.access_token);
+    try {
+      await fetch(`${process.env.REACT_APP_SERVICE_LOGIN_URL}${userType}`, {
+        headers: { Authorization: data.access_token },
+      })
+        .then(res => res.json())
+        .then(data => localStorage.setItem('bangguseokToken', data.token))
+        .then(() => successRoute());
+    } catch (error) {
+      errorRoute();
+    }
+  };
+
+  const getAccessToken = async (e, userType) => {
     const postToken = qs.stringify({
       grant_type: 'authorization_code',
       client_id: process.env.REACT_APP_CLIENT_ID,
@@ -32,12 +61,7 @@ export default function KakaoRequest() {
       })
         .then(res => res.json())
         .then(data => {
-          Kakao.Auth.setAccessToken(data.access_token);
-          fetch('http://85ba-211-106-114-186.ngrok.io/users/login/kakao/1', {
-            headers: { Authorization: data.access_token },
-          })
-            .then(res => res.json())
-            .then(data => localStorage.setItem('bangguseokToken', data.token));
+          data.error ? errorRoute() : goAuthOurService(data, userType);
         });
     } catch (err) {
       alert('접근 코드 발행에 오류가 있습니다.');
@@ -45,9 +69,53 @@ export default function KakaoRequest() {
     }
   };
 
-  useEffect(() => {
-    getAccessToken();
-  });
-
-  return null;
+  return (
+    <UserTypeSelectWrapper>
+      <UserTypeSelectContainer>
+        <UserTypeSelectHead>
+          당신은 멘토이신가요, 멘티이신가요?
+        </UserTypeSelectHead>
+        <UserTypeSelectButtons>
+          <UserTypeSelectButton onClick={e => getAccessToken(e, 1)}>
+            멘토
+          </UserTypeSelectButton>
+          <UserTypeSelectButton onClick={e => getAccessToken(e, 2)}>
+            멘티
+          </UserTypeSelectButton>
+        </UserTypeSelectButtons>
+      </UserTypeSelectContainer>
+    </UserTypeSelectWrapper>
+  );
 }
+
+const UserTypeSelectWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
+`;
+
+const UserTypeSelectContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  top: 15%;
+`;
+
+const UserTypeSelectHead = styled.header`
+  text-align: center;
+  margin-bottom: 5%;
+`;
+
+const UserTypeSelectButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+  margin: 0 auto;
+`;
+
+const UserTypeSelectButton = styled.button`
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+`;
