@@ -17,7 +17,7 @@ import styled from 'styled-components';
 
 const BUTTONTYPE_OBJ = {
   VisitSite: 'fillColor',
-  collect: 'hoverEffect',
+  Collect: 'hoverEffect',
 };
 
 const buttonBodyContent = buttonType => {
@@ -60,24 +60,31 @@ const Components = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  // padding: 0 10px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border-color: #fff;
+  justify-content: center;
+  z-index: 100;
+  padding: 0 10px;
+  height: 30px;
+  width: 30px;
+  border: 1px solid #fcfcfc;
+  border-radius: ${props => {
+    return props.propColor.includes('Icon') ? '50%' : '34px';
+  }};
+  border-color: ${props => {
+    return props.propColor.includes('Icon') ? 'white' : '#202121';
+  }};
   background-color: transparent;
   color: #fff;
 
   &:hover {
-    color: #49c5b6;
-    border-color: #49c5b6;
+    opacity: 0.6;
     transition: all 0.3s ease;
   }
 
   &.fillColor {
-    color: white;
+    color: #fcfcfc;
     border-color: #49c5b6;
     background-color: #49c5b6;
+    width: 80px;
     &:hover {
       opacity: 0.8;
       transition: all 0.3s ease;
@@ -89,6 +96,7 @@ const Components = styled.button`
     background-color: transparent;
     border-color: #fcfcfc;
     color: #fcfcfc;
+    width: 80px;
     &:hover {
       color: #49c5b6;
       border-color: #49c5b6;
