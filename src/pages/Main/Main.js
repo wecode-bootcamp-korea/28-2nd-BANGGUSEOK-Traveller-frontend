@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { TripListDiv } from './MainStyles';
+import { TripListDiv, TripListSkeleton } from './MainStyles';
 import MainVisual from './MainVisual/MainVisual';
 import ListDisplay from './ListDisplay/ListDisplay';
 
@@ -33,12 +33,14 @@ export default function Main() {
 
   return (
     <TripListDiv>
-      {mainVisual && tripLists && mainList && (
+      {mainVisual && tripLists && mainList ? (
         <>
           <MainVisual mainVisualData={mainVisual} />
           <ListDisplay tripLists={tripLists} />
           <ListDisplay tripLists={mainList} />
         </>
+      ) : (
+        <TripListSkeleton />
       )}
     </TripListDiv>
   );

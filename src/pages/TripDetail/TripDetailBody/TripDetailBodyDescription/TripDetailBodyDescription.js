@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import RadiusButton from '../../../../components/Buttons/RadiusButton';
 import VoteCards from './VoteCards/VoteCards';
 import {
@@ -12,6 +14,11 @@ import {
   TripDetailBodyDescriptionTags,
 } from './TripDetailBodyDescriptionStyles';
 
+const locationPathObj = {
+  winners: false,
+  nominees: true,
+};
+
 export default function TripDetailBodyDescription({ detailData }) {
   const [voteProgressed, setVoteProgressed] = useState(false);
   const [scoreTable, setScoreTable] = useState({
@@ -20,6 +27,9 @@ export default function TripDetailBodyDescription({ detailData }) {
     impression_on_picture: 0,
   });
   const [voteFinished, setVoteFinished] = useState(false);
+
+  const location = useLocation();
+  const needVotePath = locationPathObj[location.pathname];
 
   const handleVaoteStarted = () => {
     // todo : 토큰잇는지 확인하고 없으면 얼럿 분기하기
@@ -92,7 +102,7 @@ export default function TripDetailBodyDescription({ detailData }) {
                 sensibility
               </TripDetailBodyDescriptionSensibility>
             )}
-            {!voteProgressed && (
+            {!voteProgressed && needVotePath && (
               <VoteNow onClick={handleVaoteStarted}>VOTE NOW</VoteNow>
             )}
             {voteProgressed && !scoreTable.impression_on_picture && (

@@ -15,7 +15,8 @@
   &.active ~ footer {
     transform: translateX(320px);
     opacity: 0.2;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease;
+    pointer-events: none;
   }
 
   strong {

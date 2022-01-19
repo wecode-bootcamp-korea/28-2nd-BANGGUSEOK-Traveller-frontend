@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
-const TripDetailDiv = styled.div`
+const TripDetailWrapper = styled.div`
   background: #fff;
+  transition: transform 0.5s ease;
 `;
 
-export { TripDetailDiv };
+const TripDetailSkeleton = styled.div`
+  height: calc(100vh - 100px);
+`;
+
+export { TripDetailWrapper, TripDetailSkeleton };

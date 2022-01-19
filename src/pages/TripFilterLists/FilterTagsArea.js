@@ -4,7 +4,7 @@ import {
   atomQueryString,
   atomIsContentVisible,
   atomSelectedCategoryData,
-} from '../../components/atom/filterAtom';
+} from '../../atom/filters';
 import { useRecoilState } from 'recoil';
 
 import { FilterContext } from './FilterListContainer';

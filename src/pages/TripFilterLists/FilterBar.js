@@ -1,10 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 
-import {
-  atomIsSelectedCategory,
-  atomFilterBarData,
-} from '../../components/atom/filterAtom';
+import { atomIsSelectedCategory, atomFilterBarData } from '../../atom/filters';
 import { useRecoilState } from 'recoil';
 
 import { FilterContext } from './FilterListContainer';

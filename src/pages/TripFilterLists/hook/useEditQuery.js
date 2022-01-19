@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 
-import { atomQueryString } from '../../../components/atom/filterAtom';
+import { atomQueryString } from '../../../atom/filters';
 import { useSetRecoilState } from 'recoil';
 
 export default function useEditQuery() {
