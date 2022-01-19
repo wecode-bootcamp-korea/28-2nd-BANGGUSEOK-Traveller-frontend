@@ -11,6 +11,7 @@ const TripDetailHeaderDiv = styled.div`
 
 const TripDetailHeaderName = styled.span`
   font-weight: 300;
+  text-transform: capitalize;
 `;
 
 const TripDetailHeaderVoters = styled.div`

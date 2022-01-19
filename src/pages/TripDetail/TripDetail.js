@@ -11,15 +11,10 @@ export default function TripDetail() {
   const [votesData, setVotesData] = useState();
 
   useEffect(() => {
-    fetch(`http://e4c2-211-106-114-186.ngrok.io/products/${params.id}`, {
-      headers: {
-        Authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrYWthb19pZCI6MjA3NTI2NzExNn0.wHB8CFA5RYIDVJoayvq_7vrNcC4oblpC9wH1C4GTf2I',
-      },
-    })
+    fetch(`${process.env.REACT_APP_BASE_URL}/products/${params.id}`)
       .then(res => res.json())
       .then(data => {
-        setDetailData(data.result);
+        setDetailData(data.result.product_data);
         setVotesData(data.result.vote_data);
       });
   }, [params.id]);
@@ -29,7 +24,11 @@ export default function TripDetail() {
       {votesData ? (
         <>
           <TripDetailHeader user={detailData.user} />
-          <TripDetailBody detailData={detailData} />
+          <TripDetailBody
+            detailData={detailData}
+            votesData={votesData}
+            setVotesData={setVotesData}
+          />
           <TripDetailVotes votesData={votesData} />
         </>
       ) : (

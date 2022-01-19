@@ -55,17 +55,36 @@ const TripDetailBodyDescriptionVote = styled.div`
 `;
 
 const TripDetailBodyDescriptionInfo = styled.div`
-  margin-top: 70px;
+  margin-top: 40px;
   padding: 10px;
 `;
 
 const TripDetailBodyDescriptionTags = styled.div`
-  padding: 10px;
+  display: flex;
+  margin: 10px 0;
+`;
 
-  button {
-    display: inline-block;
-    margin-right: 10px;
+const TripDetailTagNameWrapper = styled.div`
+  width: 100px;
+
+  text-align: center;
+  &:nth-child(n + 2) {
+    margin-left: 20px;
   }
+`;
+
+const TripDetailTagName = styled.div`
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 10px;
+  color: black;
+`;
+
+const TripDetailCustomHr = styled.div`
+  content: '';
+  height: 50px;
+  margin-top: 40px;
+  background-color: #eeeeee;
 `;
 
 export {
@@ -77,4 +96,7 @@ export {
   TripDetailBodyDescriptionVote,
   TripDetailBodyDescriptionInfo,
   TripDetailBodyDescriptionTags,
+  TripDetailTagNameWrapper,
+  TripDetailTagName,
+  TripDetailCustomHr,
 };

@@ -44,11 +44,6 @@ export default function Nav() {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
-  const goToMain = () => {
-    navigate('/');
-  };
-
   const logout = () => {
     kakaoLogout();
     localStorage.removeItem('bangguseokToken');
@@ -114,8 +109,8 @@ export default function Nav() {
             </div>
           </div>
         </div>
-        <div className="logo" onClick={goToMain}>
-          BANGGUSEOK Traveller
+        <div className="logo">
+          <a href="/">BANGGUSEOK Traveller</a>
         </div>
       </header>
     </>

@@ -1,45 +1,52 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import TripCard from '../../../../components/TripCard/TripCard';
 import {
   SingleListDiv,
   SingleListName,
   SingleListUl,
-  LoadMoreButton,
+  // LoadMoreButton,
 } from './SingleListStyles';
 
-export default function SingleList({ listName, listItems }) {
-  const [clickedNumber, setClickedNumber] = useState(2);
-  const navigate = useNavigate();
+// const limit = 8;
 
-  const updateOffset = () => {
-    const limit = 8;
-    const offset = clickedNumber * 8;
-    const queryString = `?limit=${limit}&offset=${offset}`;
-    navigate(queryString);
-    setClickedNumber(prev => prev + 1);
-  };
+const listNameObj = {
+  RANDOM: '/nominees',
+  NEW: '/winners',
+  ALL: '/nominees',
+};
+
+export default function SingleList({ listName, listItems }) {
+  // const [clickedNumber, setClickedNumber] = useState(1);
+  // const navigate = useNavigate();
+
+  // const updateOffset = () => {
+  //   const offset = clickedNumber * 8;
+  //   const queryString = `?limit=${limit}&offset=${offset}`;
+  //   navigate(queryString);
+  //   setClickedNumber(prev => prev + 1);
+  // };
 
   return (
     <SingleListDiv>
-      <SingleListName>{listName}</SingleListName>
+      <SingleListName>
+        {listName === 'RANDOM' ? 'RECOMMEND' : listName}
+      </SingleListName>
       <SingleListUl>
         {listItems &&
           listItems.map((listItem, index) => {
             return (
               <li key={index}>
-                <Link to={`/TripDetail/${listItem.product_id}`}>
-                  <TripCard listItem={listItem} />
+                <Link to={`${listNameObj[listName]}/${listItem.product_id}`}>
+                  <TripCard
+                    listItem={listItem}
+                    locationPath={listNameObj[listName]}
+                  />
                 </Link>
               </li>
             );
           })}
       </SingleListUl>
-      {listItems.length > 4 && (
-        <LoadMoreButton onClick={() => updateOffset(clickedNumber)}>
-          Load More
-        </LoadMoreButton>
-      )}
     </SingleListDiv>
   );
 }

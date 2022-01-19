@@ -20,13 +20,13 @@ export default function useGetLandscapes() {
   const [queryString] = useRecoilState(atomQueryString);
 
   useEffect(() => {
-    fetch(`http://9539-211-106-114-186.ngrok.io/products/categories`)
+    fetch(`${process.env.REACT_APP_BASE_URL}/products/categories`)
       .then(res => res.json())
       .then(data => setFilterBarData(data.result));
   }, [setFilterBarData]);
 
   useEffect(() => {
-    fetch(`http://9539-211-106-114-186.ngrok.io/products?${queryString}`)
+    fetch(`${process.env.REACT_APP_BASE_URL}/products/filter?${queryString}`)
       .then(res => res.json())
       .then(data => {
         setAllDataLength(data.result.quantity);

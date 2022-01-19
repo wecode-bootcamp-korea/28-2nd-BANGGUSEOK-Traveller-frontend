@@ -7,11 +7,11 @@ import ListDisplay from './ListDisplay/ListDisplay';
 export default function Main() {
   const [mainVisual, setMainVisual] = useState();
   const [tripLists, setTripLists] = useState();
-  const [mainList, setMainList] = useState();
+  const [mainList, setMainList] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
-    fetch('http://4597-211-106-114-186.ngrok.io/products')
+    fetch(`${process.env.REACT_APP_BASE_URL}/products`)
       .then(res => res.json())
       .then(data => {
         setMainVisual(data.result[0]);
@@ -20,14 +20,13 @@ export default function Main() {
         setTripLists(listOnly);
       });
 
-    fetch(
-      `http://4597-211-106-114-186.ngrok.io/products/list${
-        location.search || '?limit=8&offset=8'
-      }`
-    )
+    fetch(`${process.env.REACT_APP_BASE_URL}/products/list`)
       .then(res => res.json())
       .then(data => {
-        setMainList(data.result);
+        setMainList(current => {
+          const newList = [...current, ...data.result];
+          return newList;
+        });
       });
   }, [location.search]);
 

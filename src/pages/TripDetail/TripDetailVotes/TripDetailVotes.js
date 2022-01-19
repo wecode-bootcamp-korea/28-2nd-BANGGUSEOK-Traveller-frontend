@@ -14,7 +14,7 @@ export default function TripDetailVotes({ votesData }) {
           const {
             voted_user_id,
             voted_user_nickname,
-            voted_user_image,
+            // voted_user_image,
             vote1,
             vote2,
             vote3,
@@ -25,7 +25,7 @@ export default function TripDetailVotes({ votesData }) {
             <li key={voted_user_id}>
               <UserInfoWrapper>
                 <Profile>
-                  <Image src={voted_user_image} alt="img" />
+                  {/* <Image src={voted_user_image} alt="img" /> */}
                 </Profile>
                 <div>{voted_user_nickname}</div>
               </UserInfoWrapper>
@@ -36,21 +36,21 @@ export default function TripDetailVotes({ votesData }) {
                       <RatingCircle
                         type="sensibility"
                         rate={vote1 * 10}
-                        circleId={voted_user_nickname + 0}
+                        circleId={voted_user_nickname + '0'}
                       />
                     </RatingCircleLi>
                     <RatingCircleLi>
                       <RatingCircle
                         type="intent_to_visit"
                         rate={vote2 * 10}
-                        circleId={voted_user_nickname + 1}
+                        circleId={voted_user_nickname + '1'}
                       />
                     </RatingCircleLi>
                     <RatingCircleLi>
                       <RatingCircle
-                        type="impresstion_on_picture"
+                        type="impression_on_picture"
                         rate={vote3 * 10}
-                        circleId={voted_user_nickname + 2}
+                        circleId={voted_user_nickname + '2'}
                       />
                     </RatingCircleLi>
                   </RatingCircleUl>
@@ -72,7 +72,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-bottom: 100px;
+
+  padding: 30px 0;
 `;
 
 const Header = styled.div`
@@ -134,12 +135,12 @@ const UserInfoWrapper = styled.div`
   font-family: 'apercu', sans-serif;
 `;
 
-const Image = styled.img`
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 50%;
-`;
+// const Image = styled.img`
+//   width: 60px;
+//   height: 60px;
+//   object-fit: cover;
+//   border-radius: 50%;
+// `;
 
 const Profile = styled.div`
   width: 50px;

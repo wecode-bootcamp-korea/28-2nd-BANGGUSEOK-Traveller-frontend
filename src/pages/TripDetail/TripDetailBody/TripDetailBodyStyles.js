@@ -27,4 +27,20 @@ const TripDetailBodyDiv = styled.div`
   }
 `;
 
-export { TripDetailBodyDiv };
+const SubImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+`;
+
+const TripDetailSubImage = styled.img`
+  height: 500px;
+  object-fit: cover;
+  &:nth-child(n + 1) {
+    margin-top: 10px;
+  }
+`;
+
+export { TripDetailBodyDiv, TripDetailSubImage, SubImageContainer };

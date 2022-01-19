@@ -9,18 +9,27 @@ import Main from './pages/Main/Main';
 import NotFound from './components/NotFound/NotFound';
 import KakaoRequest from './components/Kakao/KakaoRequest';
 import FilterListsRouteNesting from './pages/TripFilterLists/FilterListsRouteNesting';
+import ScrollToTop from './customlib/ScrollToTop';
 
 export const AuthContext = React.createContext();
+
+const FILTER_ROUTE_PATHS = ['/winners/*', '/nominees/*'];
 
 export default function Router() {
   return (
     <RecoilRoot>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route element={<WithNav />}>
             <Route path="/" element={<Main />} />
-            <Route path="/winners/*" element={<FilterListsRouteNesting />} />
-            <Route path="/nominees/*" element={<FilterListsRouteNesting />} />
+            {FILTER_ROUTE_PATHS.map(item => (
+              <Route
+                path={`${item}`}
+                element={<FilterListsRouteNesting />}
+                key={item}
+              />
+            ))}
           </Route>
 
           <Route element={<WithoutNav />}>

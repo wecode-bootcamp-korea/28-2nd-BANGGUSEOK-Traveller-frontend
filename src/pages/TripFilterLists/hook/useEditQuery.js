@@ -11,6 +11,8 @@ export default function useEditQuery() {
   const getEachQuery = (e, categoryName) => {
     const name = e.target.getAttribute('name');
 
+    if (categoryName !== 'page') searchParams.delete('page');
+
     searchParams.get(categoryName) !== name
       ? searchParams.set(categoryName, name)
       : searchParams.delete(categoryName);
