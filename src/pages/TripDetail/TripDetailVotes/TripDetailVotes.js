@@ -16,8 +16,8 @@ export default function TripDetailVotes() {
           return (
             <li key={list.id}>
               <div className="userInfoWrapper">
+                <div className="profile">{list.profile}</div>
                 <div className="user">{list.user}</div>
-                <div className="national">{list.national}</div>
               </div>
               <div className="evaluate">
                 <div className="ratingCircle">
@@ -98,29 +98,36 @@ const Users = styled.ul`
       align-items: center;
       font-family: 'apercu', sans-serif;
 
-      .national {
-        padding-left: 15px;
+      .profile {
+        width: 50px;
+        height: 100%;
+        margin-right: 30px;
       }
     }
 
     .evaluate {
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
+      width: 50%;
 
-      span {
-        text-align: right;
-        font-size: 25px;
-        font-weight: 400;
-        font-family: 'apercu', sans-serif;
+      .average {
+        width: 70px;
+
+        span {
+          text-align: right;
+          font-size: 25px;
+          font-weight: 400;
+          font-family: 'apercu', sans-serif;
+        }
       }
     }
   }
 `;
 
 const USER_INFO = [
-  { id: 1, user: 'Cullen', national: 'France', average: '6.15' },
-  { id: 2, user: 'Rick', national: 'United Kingdom', average: '7.24' },
-  { id: 3, user: 'James', national: 'Netherlands', average: '8.11' },
-  { id: 4, user: 'Ben', national: 'Ukraine', average: '7.94' },
+  { id: 1, profile: 'Cullen', user: 'France', average: '6.15' },
+  { id: 2, profile: 'Rick', user: 'United Kingdom', average: '7.24' },
+  { id: 3, profile: 'James', user: 'Netherlands', average: '8.11' },
+  { id: 4, profile: 'Ben', user: 'Ukraine', average: '7.94' },
 ];
