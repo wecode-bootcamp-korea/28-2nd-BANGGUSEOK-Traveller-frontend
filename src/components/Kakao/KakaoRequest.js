@@ -1,4 +1,4 @@
-import { atomUserToken } from '../atom/commonAtom';
+import { atomUserToken } from '../../atom/users';
 import { useSetRecoilState } from 'recoil';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';

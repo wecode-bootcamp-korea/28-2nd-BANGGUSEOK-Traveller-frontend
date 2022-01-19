@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  atomQueryString,
-  atomIsContentVisible,
-} from '../../components/atom/filterAtom';
+import { atomQueryString, atomIsContentVisible } from '../../atom/filters';
 import { useRecoilState } from 'recoil';
 
 import useFilterToggle from './hook/useFilterToggle';

@@ -35,6 +35,7 @@ export default function PaginationButtons({
             ) : (
               <PaginationABtn
                 key={item.id}
+                name={item.id}
                 isActive={isActive}
                 onClick={e => getEachQuery(e, 'page')}
               >

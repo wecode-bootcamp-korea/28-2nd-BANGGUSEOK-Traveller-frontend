@@ -7,7 +7,7 @@ import {
   atomAllDataLength,
   atomFilterBarData,
   atomSelectedCategoryData,
-} from '../../../components/atom/filterAtom';
+} from '../../../atom/filters';
 import { useRecoilState } from 'recoil';
 
 export default function useGetLandscapes() {
@@ -29,8 +29,8 @@ export default function useGetLandscapes() {
     fetch(`http://9539-211-106-114-186.ngrok.io/products?${queryString}`)
       .then(res => res.json())
       .then(data => {
-        setAllDataLength(data.quantity);
-        setQueryedData(data.result);
+        setAllDataLength(data.result.quantity);
+        setQueryedData(data.result.product_data);
       });
   }, [queryString, setAllDataLength, setQueryedData]);
 

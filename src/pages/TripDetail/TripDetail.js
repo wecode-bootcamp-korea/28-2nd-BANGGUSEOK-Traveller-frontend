@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { TripDetailDiv } from './TripDetailStyles';
+import { TripDetailSkeleton, TripDetailWrapper } from './TripDetailStyles';
 import TripDetailHeader from './TripDetailHeader/TripDetailHeader';
 import TripDetailBody from './TripDetailBody/TripDetailBody';
 import TripDetailVotes from './TripDetailVotes/TripDetailVotes';
@@ -22,13 +22,19 @@ export default function TripDetail() {
         setDetailData(data.result);
         setVotesData(data.result.vote_data);
       });
-  }, []);
+  }, [params.id]);
 
   return (
-    <TripDetailDiv>
-      <TripDetailHeader user={detailData.user} />
-      <TripDetailBody detailData={detailData} />
-      <TripDetailVotes votesData={votesData} />
-    </TripDetailDiv>
+    <TripDetailWrapper>
+      {votesData ? (
+        <>
+          <TripDetailHeader user={detailData.user} />
+          <TripDetailBody detailData={detailData} />
+          <TripDetailVotes votesData={votesData} />
+        </>
+      ) : (
+        <TripDetailSkeleton />
+      )}
+    </TripDetailWrapper>
   );
 }

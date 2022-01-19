@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { atomUserToken } from '../atom/commonAtom';
+import { atomUserToken } from '../../atom/users';
 import { useRecoilState } from 'recoil';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -11,7 +11,7 @@ export default function Modal({ isModalOpen, toggleModal, children }) {
 }
 
 const ModalBody = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

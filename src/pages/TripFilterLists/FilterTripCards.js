@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { Routes, Route } from 'react-router-dom';
 
 import {
   atomQueryString,
   atomQueryedData,
   atomPaginateData,
-} from '../../components/atom/filterAtom';
+} from '../../atom/filters';
+
 import { useRecoilState } from 'recoil';
 
 import { FilterContext } from './FilterListContainer';
@@ -15,7 +15,6 @@ import useCreatePaginate from './hook/useCreatePaginate';
 
 import PaginationButtons from '../../components/Buttons/PaginationButtons';
 import TripCard from '../../components/TripCard/TripCard';
-import TripDetail from '../TripDetail/TripDetail';
 import { FilterTripSkeletonCard } from './FilterTripSkeletonCard';
 
 import styled from 'styled-components';
@@ -33,41 +32,33 @@ export default function TripCards() {
   const locationPath = location.pathname;
 
   return (
-    <>
-      <Routes>
-        <Route path="/tripDetail/:id" element={<TripDetail />} />
-      </Routes>
-      <TripCardsWrapper>
-        {queryedData ? (
-          queryedData.length ? (
-            <>
-              <TripCardsGrid>
-                {queryedData.map(item => (
-                  <TripCardLink
-                    to={`tripdetail/${item.product_id}`}
-                    key={item.product_id}
-                  >
-                    <TripCard listItem={item} locationPath={locationPath} />
-                  </TripCardLink>
-                ))}
-              </TripCardsGrid>
-              <PaginationButtons
-                pageNumber={pageNumber ? Number(pageNumber) : 1}
-                paginateData={paginateData}
-                queryString={queryString}
-                getEachQuery={getEachQuery}
-              />
-            </>
-          ) : (
-            <TripCardsNotFound>검색 결과가 없습니다.</TripCardsNotFound>
-          )
+    <TripCardsWrapper>
+      {queryedData ? (
+        queryedData.length ? (
+          <>
+            <TripCardsGrid>
+              {queryedData.map(item => (
+                <TripCardLink to={`${item.product_id}`} key={item.product_id}>
+                  <TripCard listItem={item} locationPath={locationPath} />
+                </TripCardLink>
+              ))}
+            </TripCardsGrid>
+            <PaginationButtons
+              pageNumber={pageNumber ? Number(pageNumber) : 1}
+              paginateData={paginateData}
+              queryString={queryString}
+              getEachQuery={getEachQuery}
+            />
+          </>
         ) : (
-          <TripCardsGrid>
-            <FilterTripSkeletonCard />
-          </TripCardsGrid>
-        )}
-      </TripCardsWrapper>
-    </>
+          <TripCardsNotFound>검색 결과가 없습니다.</TripCardsNotFound>
+        )
+      ) : (
+        <TripCardsGrid>
+          <FilterTripSkeletonCard />
+        </TripCardsGrid>
+      )}
+    </TripCardsWrapper>
   );
 }
 

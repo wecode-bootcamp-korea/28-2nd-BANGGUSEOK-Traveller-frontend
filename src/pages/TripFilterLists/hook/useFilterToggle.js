@@ -4,7 +4,7 @@ import {
   atomIsContentVisible,
   atomIsSelectedCategory,
   atomCategories,
-} from '../../../components/atom/filterAtom';
+} from '../../../atom/filters';
 import { useRecoilState } from 'recoil';
 
 export default function useFilterToggle() {

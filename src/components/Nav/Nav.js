@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { atomUserToken } from '../atom/commonAtom';
+import { atomUserToken } from '../../atom/users';
 import { useRecoilState } from 'recoil';
 
 import useScrollbarToggle from './hook/useScrollbarToggle';
@@ -29,6 +29,7 @@ export default function Nav() {
   const [userToken, setUserToken] = useRecoilState(atomUserToken);
 
   useScrollbarToggle(isSideBarOpen);
+  useScrollbarToggle(isModalOpen);
 
   const handleSearchOpen = () => {
     setIsSearchOpen(!isSearchOpen);

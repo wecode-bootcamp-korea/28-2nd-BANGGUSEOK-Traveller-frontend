@@ -1,9 +1,6 @@
 import { useEffect } from 'react';
 
-import {
-  atomAllDataLength,
-  atomPaginateData,
-} from '../../../components/atom/filterAtom';
+import { atomAllDataLength, atomPaginateData } from '../../../atom/filters';
 import { useRecoilState } from 'recoil';
 
 export default function useCreatePaginate() {
