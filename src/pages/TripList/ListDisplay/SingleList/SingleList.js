@@ -9,10 +9,10 @@ import {
 } from './SingleListStyles';
 
 export default function SingleList({ listName, listItems }) {
-  const [clickedNumber, setClickedNumber] = useState(2);
+  const [clickedNumber, setClickedNumber] = useState(0);
   const navigate = useNavigate();
 
-  const updateLimit = () => {
+  const updateOffset = () => {
     const limit = 8;
     const offset = clickedNumber * 8;
     const queryString = `?limit=${limit}&offset=${offset}`;
@@ -36,7 +36,9 @@ export default function SingleList({ listName, listItems }) {
           })}
       </SingleListUl>
       {listItems.length > 4 && (
-        <LoadMoreButton onClick={updateLimit}>Load More</LoadMoreButton>
+        <LoadMoreButton onClick={() => updateOffset(clickedNumber)}>
+          Load More
+        </LoadMoreButton>
       )}
     </SingleListDiv>
   );

@@ -30,7 +30,7 @@ const TripCardGellery = styled.section`
 
     ${TripCardGelleryImg} {
       transform: scale(1.2);
-      transition: transform 0.5s ease;
+      transition: all 0.5s ease;
       filter: brightness(50%);
     }
 
