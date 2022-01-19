@@ -18,12 +18,15 @@ import { AuthContext } from '../../Router';
 import kakaoLogout from '../Kakao/kakaoLogout';
 
 import './Nav.scss';
+import useScrollbarToggle from './hook/useScrollbarToggle';
 
 export default function Nav() {
   const { userToken, setUserToken } = useContext(AuthContext);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useScrollbarToggle(isSideBarOpen);
 
   const handleSearchOpen = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -58,63 +61,60 @@ export default function Nav() {
         toggleModal={toggleModal}
         children={<KakaoLogin />}
       />
-      <div className={`sideWrapper ${isSideBarOpen ? 'active' : ''}`}>
-        <NavSidebar
-          handleSideBarOpen={handleSideBarOpen}
-          toggleModal={toggleModal}
-        />
-        <div className={`navWrapper ${isSideBarOpen ? 'active' : ''}`}>
-          <div className="firstNav">
-            <strong>ENGLISH</strong>
-            <p>
-              The awards of design, creativity and innovation on the internet
-            </p>
-            <div className="firstNavIcons">
-              <FontAwesomeIcon icon={faInstagram} />
-              <FontAwesomeIcon icon={faTwitter} />
-              <FontAwesomeIcon icon={faFacebookF} />
-            </div>
-          </div>
-          <header className="secondNav">
-            <div className="secondNavLeftBox" onClick={handleSideBarOpen}>
-              <FontAwesomeIcon icon={faBars} />
-              menu
-            </div>
-            <div className="secondNavRightBox">
-              <div className="search">
-                <FontAwesomeIcon icon={faSearch} onClick={handleSearchOpen} />
-              </div>
-              <div className="itemLogin">
-                <span>Are you a member?</span>
-                {!userToken ? (
-                  <strong onClick={toggleModal}>REGISTER / LOG IN</strong>
-                ) : (
-                  <strong onClick={logout}>LOGOUT</strong>
-                )}
-              </div>
-              <div className="SubmitButton">SUBMIT YOUR SITE!</div>
-            </div>
-            <div className={`searchContainer ${isSearchOpen ? 'active' : ''}`}>
-              <div className="searchBox">
-                <input
-                  type="text"
-                  placeholder="SEARCH FOR INSPIRATION (HTML5, VR, RED, MINIMAL...)"
-                  className="searchInput"
-                />
-                <div className="filter">
-                  <strong>SHOW FILTERS</strong>
-                </div>
-                <div className="btnClose" onClick={handleSearchOpen}>
-                  X
-                </div>
-              </div>
-            </div>
-            <div className="logo" onClick={goToMain}>
-              BANGGUSEOK Traveller
-            </div>
-          </header>
+
+      <NavSidebar
+        handleSideBarOpen={handleSideBarOpen}
+        toggleModal={toggleModal}
+        isSideBarOpen={isSideBarOpen}
+      />
+
+      <div className={`firstNav ${isSideBarOpen ? 'active' : ''}`}>
+        <strong>ENGLISH</strong>
+        <p>The awards of design, creativity and innovation on the internet</p>
+        <div className="firstNavIcons">
+          <FontAwesomeIcon icon={faInstagram} />
+          <FontAwesomeIcon icon={faTwitter} />
+          <FontAwesomeIcon icon={faFacebookF} />
         </div>
       </div>
+      <header className={`secondNav ${isSideBarOpen ? 'active' : ''}`}>
+        <div className="secondNavLeftBox" onClick={handleSideBarOpen}>
+          <FontAwesomeIcon icon={faBars} />
+          menu
+        </div>
+        <div className="secondNavRightBox">
+          <div className="search">
+            <FontAwesomeIcon icon={faSearch} onClick={handleSearchOpen} />
+          </div>
+          <div className="itemLogin">
+            <span>Are you a member?</span>
+            {!userToken ? (
+              <strong onClick={toggleModal}>REGISTER / LOG IN</strong>
+            ) : (
+              <strong onClick={logout}>LOGOUT</strong>
+            )}
+          </div>
+          <div className="SubmitButton">SUBMIT YOUR SITE!</div>
+        </div>
+        <div className={`searchContainer ${isSearchOpen ? 'active' : ''}`}>
+          <div className="searchBox">
+            <input
+              type="text"
+              placeholder="SEARCH FOR INSPIRATION (HTML5, VR, RED, MINIMAL...)"
+              className="searchInput"
+            />
+            <div className="filter">
+              <strong>SHOW FILTERS</strong>
+            </div>
+            <div className="btnClose" onClick={handleSearchOpen}>
+              X
+            </div>
+          </div>
+        </div>
+        <div className="logo" onClick={goToMain}>
+          BANGGUSEOK Traveller
+        </div>
+      </header>
     </>
   );
 }
