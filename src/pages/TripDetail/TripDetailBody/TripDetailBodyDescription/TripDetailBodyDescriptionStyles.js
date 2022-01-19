@@ -4,7 +4,7 @@ const TripDetailBodyDescriptionDiv = styled.div`
   position: relative;
 `;
 
-const TripDetailBodyDescriptionImpresstionOnPicture = styled.div`
+const TripDetailBodyDescriptionImpressionOnPicture = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
@@ -70,7 +70,7 @@ const TripDetailBodyDescriptionTags = styled.div`
 
 export {
   TripDetailBodyDescriptionDiv,
-  TripDetailBodyDescriptionImpresstionOnPicture,
+  TripDetailBodyDescriptionImpressionOnPicture,
   TripDetailBodyDescriptionIntentToVisit,
   TripDetailBodyDescriptionSensibility,
   VoteNow,

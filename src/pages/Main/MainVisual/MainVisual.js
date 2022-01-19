@@ -43,26 +43,28 @@ export default function MainVisual({ mainVisualData }) {
               WITH{' '}
               <MainVisualMainInformationStrong>
                 {(
-                  mainVisualData.product.score.reduce(
-                    (acc, curr) => acc + Number(Object.values(curr)[0]),
+                  Object.values(mainVisualData.product.score).reduce(
+                    (acc, curr) => acc + curr,
                     0
-                  ) / mainVisualData.product.score.length
+                  ) / Object.values(mainVisualData.product.score).length
                 ).toFixed(2)}
               </MainVisualMainInformationStrong>
             </MainVisualMainInformation>
             <MainVisualMainGauges>
-              {mainVisualData.product.score.map((singleScore, index) => (
-                <MainVisualMainGauge key={index}>
-                  <RatingCircle
-                    type={Object.keys(singleScore)[0]}
-                    rate={Number(Object.values(singleScore)[0] * 10)}
-                    circleId={index}
-                  />
-                  <MainVisualMainGaugeLable>
-                    {Object.keys(singleScore)[0]}
-                  </MainVisualMainGaugeLable>
-                </MainVisualMainGauge>
-              ))}
+              {Object.entries(mainVisualData.product.score).map(
+                (singleScore, index) => (
+                  <MainVisualMainGauge key={index}>
+                    <RatingCircle
+                      type={singleScore[0]}
+                      rate={singleScore[1]}
+                      circleId={index}
+                    />
+                    <MainVisualMainGaugeLable>
+                      {singleScore[0]}
+                    </MainVisualMainGaugeLable>
+                  </MainVisualMainGauge>
+                )
+              )}
             </MainVisualMainGauges>
           </MainVisualMain>
           <MainVisualBottomMenu>

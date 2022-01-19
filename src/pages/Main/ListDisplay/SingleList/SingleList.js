@@ -9,7 +9,7 @@ import {
 } from './SingleListStyles';
 
 export default function SingleList({ listName, listItems }) {
-  const [clickedNumber, setClickedNumber] = useState(0);
+  const [clickedNumber, setClickedNumber] = useState(2);
   const navigate = useNavigate();
 
   const updateOffset = () => {
