@@ -6,11 +6,15 @@ import { AuthContext } from '../../Router';
 
 import './NavSidebar.scss';
 
-export default function NavSidebar({ handleSideBarOpen, toggleModal }) {
+export default function NavSidebar({
+  handleSideBarOpen,
+  toggleModal,
+  isSideBarOpen,
+}) {
   const { userToken } = useContext(AuthContext);
 
   return (
-    <div className="containerWrapper">
+    <div className={`containerWrapper ${isSideBarOpen ? 'active' : ''}`}>
       <div className="container">
         <div className="sideTopWrapper">
           <div className="sideTopBox">
