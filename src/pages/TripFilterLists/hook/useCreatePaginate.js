@@ -1,11 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-export default function useCreatePaginate(data) {
-  const [paginateData, setPaginateData] = useState([]);
+import {
+  atomAllDataLength,
+  atomPaginateData,
+} from '../../../components/atom/filterAtom';
+import { useRecoilState } from 'recoil';
+
+export default function useCreatePaginate() {
+  const [, setPaginateData] = useRecoilState(atomPaginateData);
+  const [allDataLength] = useRecoilState(atomAllDataLength);
 
   useEffect(() => {
-    if (data) {
-      const paginateNumber = data.length / 8;
+    if (allDataLength) {
+      const paginateNumber = allDataLength / 8;
       const paginateNumberObj = [];
       let start = 0;
 
@@ -17,7 +24,5 @@ export default function useCreatePaginate(data) {
 
       setPaginateData(paginateNumberObj);
     }
-  }, [data, setPaginateData]);
-
-  return { paginateData };
+  }, [allDataLength, setPaginateData]);
 }

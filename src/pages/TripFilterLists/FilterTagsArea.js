@@ -1,5 +1,12 @@
 import { useContext } from 'react';
 
+import {
+  atomQueryString,
+  atomIsContentVisible,
+  atomSelectedCategoryData,
+} from '../../components/atom/filterAtom';
+import { useRecoilState } from 'recoil';
+
 import { FilterContext } from './FilterListContainer';
 
 import styled from 'styled-components';
@@ -12,13 +19,11 @@ const CATEGORY_ENG_URL = {
 };
 
 export default function FilterTagsArea() {
-  const {
-    isContentVisible,
-    handleContentHide,
-    selectedCategoryData,
-    getEachQuery,
-    queryString,
-  } = useContext(FilterContext);
+  const { handleContentHide, getEachQuery } = useContext(FilterContext);
+
+  const [queryString] = useRecoilState(atomQueryString);
+  const [isContentVisible] = useRecoilState(atomIsContentVisible);
+  const [selectedCategoryData] = useRecoilState(atomSelectedCategoryData);
 
   return (
     <FilterTagsWrapper

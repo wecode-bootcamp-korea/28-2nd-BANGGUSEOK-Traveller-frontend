@@ -1,19 +1,24 @@
-import { useContext } from 'react';
+import { atomUserToken } from '../atom/commonAtom';
+import { useSetRecoilState } from 'recoil';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import qs from 'qs';
 
-import { AuthContext } from '../../Router';
 import { Kakao } from './OAuth';
+
+const USER_TYPE = {
+  mentor: 1,
+  mentee: 2,
+};
 
 Kakao.init(process.env.REACT_APP_JS_APIKEY);
 
 export default function KakaoRequest() {
-  const { setUserToken } = useContext(AuthContext);
-
   const navigate = useNavigate();
   const location = useLocation();
+  const setUserToken = useSetRecoilState(atomUserToken);
+
   const requestCode = qs.parse(location.search, {
     ignoreQueryPrefix: true,
   }).code;
@@ -24,18 +29,23 @@ export default function KakaoRequest() {
   };
 
   const successRoute = () => {
-    setUserToken(localStorage.getItem('bangguseokToken'));
     navigate('/');
   };
 
   const goAuthOurService = async (data, userType) => {
     Kakao.Auth.setAccessToken(data.access_token);
     try {
-      await fetch(`${process.env.REACT_APP_SERVICE_LOGIN_URL}${userType}`, {
-        headers: { Authorization: data.access_token },
-      })
+      await fetch(
+        `http://9539-211-106-114-186.ngrok.io/users/login/kakao/${userType}`,
+        {
+          headers: { Authorization: data.access_token },
+        }
+      )
         .then(res => res.json())
-        .then(data => localStorage.setItem('bangguseokToken', data.token))
+        .then(data => {
+          localStorage.setItem('bangguseokToken', data.token);
+          setUserToken(data.token);
+        })
         .then(() => successRoute());
     } catch (error) {
       errorRoute();
@@ -76,10 +86,14 @@ export default function KakaoRequest() {
           당신은 멘토이신가요, 멘티이신가요?
         </UserTypeSelectHead>
         <UserTypeSelectButtons>
-          <UserTypeSelectButton onClick={e => getAccessToken(e, 1)}>
+          <UserTypeSelectButton
+            onClick={e => getAccessToken(e, USER_TYPE.mentor)}
+          >
             멘토
           </UserTypeSelectButton>
-          <UserTypeSelectButton onClick={e => getAccessToken(e, 2)}>
+          <UserTypeSelectButton
+            onClick={e => getAccessToken(e, USER_TYPE.mentee)}
+          >
             멘티
           </UserTypeSelectButton>
         </UserTypeSelectButtons>

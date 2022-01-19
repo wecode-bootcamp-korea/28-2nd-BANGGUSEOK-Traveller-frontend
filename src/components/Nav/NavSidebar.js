@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
+
+import { atomUserToken } from '../atom/commonAtom';
+import { useRecoilState } from 'recoil';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-
-import { AuthContext } from '../../Router';
 
 import './NavSidebar.scss';
 
@@ -11,7 +13,7 @@ export default function NavSidebar({
   toggleModal,
   isSideBarOpen,
 }) {
-  const { userToken } = useContext(AuthContext);
+  const [userToken] = useRecoilState(atomUserToken);
 
   return (
     <div className={`containerWrapper ${isSideBarOpen ? 'active' : ''}`}>
@@ -27,9 +29,9 @@ export default function NavSidebar({
                 height={15}
               />
             </div>
-            <div className="sideTopRight">
-              <strong onClick={handleSideBarOpen}>Close</strong>
-              <FontAwesomeIcon icon={faTimes} onClick={handleSideBarOpen} />
+            <div className="sideTopRight" onClick={handleSideBarOpen}>
+              <strong>Close</strong>
+              <FontAwesomeIcon icon={faTimes} />
             </div>
           </div>
           <ul className="links">
@@ -65,8 +67,8 @@ export default function NavSidebar({
 const SIDE_DATA = [
   { id: 1, content: 'Register / log in', address: '' },
   { id: 2, content: 'Home', address: '/' },
-  { id: 3, content: 'Winners', address: '/Filter' },
-  { id: 4, content: 'Nominess', address: '/Filter' },
+  { id: 3, content: 'Winners', address: '/winners' },
+  { id: 4, content: 'Nominees', address: '/nominees' },
   { id: 5, content: 'Collections', address: '/Filter' },
   { id: 6, content: 'Academy', address: '/Filter' },
 ];

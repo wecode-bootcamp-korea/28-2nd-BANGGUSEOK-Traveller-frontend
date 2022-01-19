@@ -1,10 +1,12 @@
-import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-export default function useEditQuery() {
-  const [queryString, setQueryString] = useState('');
+import { atomQueryString } from '../../../components/atom/filterAtom';
+import { useSetRecoilState } from 'recoil';
 
+export default function useEditQuery() {
   const [searchParams] = useSearchParams();
+
+  const setAtomQueryString = useSetRecoilState(atomQueryString);
 
   const getEachQuery = (e, categoryName) => {
     const name = e.target.getAttribute('name');
@@ -13,12 +15,12 @@ export default function useEditQuery() {
       ? searchParams.set(categoryName, name)
       : searchParams.delete(categoryName);
 
-    setQueryString(searchParams.toString());
+    setAtomQueryString(searchParams.toString());
   };
 
   const resetQuery = () => {
-    setQueryString('');
+    setAtomQueryString('');
   };
 
-  return { queryString, getEachQuery, resetQuery };
+  return { getEachQuery, resetQuery };
 }

@@ -1,54 +1,73 @@
 import { useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+
+import {
+  atomQueryString,
+  atomQueryedData,
+  atomPaginateData,
+} from '../../components/atom/filterAtom';
+import { useRecoilState } from 'recoil';
 
 import { FilterContext } from './FilterListContainer';
 
-import styled from 'styled-components';
+import useCreatePaginate from './hook/useCreatePaginate';
 
 import PaginationButtons from '../../components/Buttons/PaginationButtons';
 import TripCard from '../../components/TripCard/TripCard';
-
+import TripDetail from '../TripDetail/TripDetail';
 import { FilterTripSkeletonCard } from './FilterTripSkeletonCard';
-import useCreatePaginate from './hook/useCreatePaginate';
+
+import styled from 'styled-components';
 
 export default function TripCards() {
-  const { queryString, getEachQuery, queryedData } = useContext(FilterContext);
-  const { paginateData } = useCreatePaginate(queryedData);
-  const location = useLocation();
+  const { getEachQuery } = useContext(FilterContext);
+  const [queryString] = useRecoilState(atomQueryString);
+  const [queryedData] = useRecoilState(atomQueryedData);
+  const [paginateData] = useRecoilState(atomPaginateData);
 
-  const nowLocation = location.search.split('page=')[1];
+  useCreatePaginate();
+
+  const location = useLocation();
+  const pageNumber = location.search.split('page=')[1];
+  const locationPath = location.pathname;
 
   return (
-    <TripCardsWrapper>
-      {queryedData ? (
-        queryedData.length ? (
-          <>
-            <TripCardsGrid>
-              {queryedData.map(item => (
-                <Link
-                  to={`../tripdetail/${item.product_id}`}
-                  key={item.product_id}
-                >
-                  <TripCard listItem={item} />
-                </Link>
-              ))}
-            </TripCardsGrid>
-            <PaginationButtons
-              nowLocation={nowLocation ? Number(nowLocation) : 1}
-              paginateData={paginateData}
-              queryString={queryString}
-              getEachQuery={getEachQuery}
-            />
-          </>
+    <>
+      <Routes>
+        <Route path="/tripDetail/:id" element={<TripDetail />} />
+      </Routes>
+      <TripCardsWrapper>
+        {queryedData ? (
+          queryedData.length ? (
+            <>
+              <TripCardsGrid>
+                {queryedData.map(item => (
+                  <TripCardLink
+                    to={`tripdetail/${item.product_id}`}
+                    key={item.product_id}
+                  >
+                    <TripCard listItem={item} locationPath={locationPath} />
+                  </TripCardLink>
+                ))}
+              </TripCardsGrid>
+              <PaginationButtons
+                pageNumber={pageNumber ? Number(pageNumber) : 1}
+                paginateData={paginateData}
+                queryString={queryString}
+                getEachQuery={getEachQuery}
+              />
+            </>
+          ) : (
+            <TripCardsNotFound>검색 결과가 없습니다.</TripCardsNotFound>
+          )
         ) : (
-          <TripCardsNotFound>검색 결과가 없습니다.</TripCardsNotFound>
-        )
-      ) : (
-        <TripCardsGrid>
-          <FilterTripSkeletonCard />
-        </TripCardsGrid>
-      )}
-    </TripCardsWrapper>
+          <TripCardsGrid>
+            <FilterTripSkeletonCard />
+          </TripCardsGrid>
+        )}
+      </TripCardsWrapper>
+    </>
   );
 }
 
@@ -70,4 +89,9 @@ const TripCardsNotFound = styled.div`
   height: calc(100vh - 437px);
   justify-content: center;
   align-items: center;
+`;
+
+const TripCardLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;

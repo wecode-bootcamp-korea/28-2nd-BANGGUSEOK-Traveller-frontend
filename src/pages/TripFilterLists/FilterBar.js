@@ -1,12 +1,18 @@
 import { useContext } from 'react';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 
-import { FilterContext } from './FilterListContainer';
+import {
+  atomIsSelectedCategory,
+  atomFilterBarData,
+} from '../../components/atom/filterAtom';
+import { useRecoilState } from 'recoil';
 
-import styled from 'styled-components';
+import { FilterContext } from './FilterListContainer';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faHistory } from '@fortawesome/free-solid-svg-icons';
+
+import styled from 'styled-components';
 
 const CATEGORY_ENG_URL = {
   대륙: 'conti',
@@ -16,8 +22,9 @@ const CATEGORY_ENG_URL = {
 };
 
 export default function FilterBar() {
-  const { isSelectedCategory, handleCategory, filterBarData, resetQuery } =
-    useContext(FilterContext);
+  const [isSelectedCategory] = useRecoilState(atomIsSelectedCategory);
+  const [filterBarData] = useRecoilState(atomFilterBarData);
+  const { handleCategory, resetQuery } = useContext(FilterContext);
 
   const [searchParams] = useSearchParams();
 
@@ -54,12 +61,13 @@ export default function FilterBar() {
               </FilterItemLi>
             );
           })}
-          {searchParams.toString().length > 0 && (
-            <FilterResetLi onClick={moveToBase}>
-              <FontAwesomeIcon icon={faHistory} />
-              RESET FILTERS
-            </FilterResetLi>
-          )}
+          {searchParams.toString().length > 1 &&
+            searchParams.get('page') !== 1 && (
+              <FilterResetLi onClick={moveToBase}>
+                <FontAwesomeIcon icon={faHistory} />
+                RESET FILTERS
+              </FilterResetLi>
+            )}
         </FilterUl>
       </FilterBarLeft>
     </FilterBarContainer>

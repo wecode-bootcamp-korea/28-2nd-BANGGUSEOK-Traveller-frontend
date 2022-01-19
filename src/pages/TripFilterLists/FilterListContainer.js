@@ -1,31 +1,33 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import {
+  atomQueryString,
+  atomIsContentVisible,
+} from '../../components/atom/filterAtom';
+import { useRecoilState } from 'recoil';
+
 import useFilterToggle from './hook/useFilterToggle';
 import useEditQuery from './hook/useEditQuery';
-
-import styled from 'styled-components';
+import useGetLandscapes from './hook/useGetLandscapes';
 
 import FilterBar from './FilterBar';
 import FilterTagsArea from './FilterTagsArea';
 import FilterTripCards from './FilterTripCards';
-import useGetLandscapes from './hook/useGetLandscapes';
+
+import styled from 'styled-components';
 
 export const FilterContext = React.createContext();
+
 export default function FilterListContainer() {
-  const {
-    isContentVisible,
-    handleContentVisible,
-    handleContentHide,
-    isSelectedCategory,
-    handleCategory,
-  } = useFilterToggle();
+  const { handleContentVisible, handleContentHide, handleCategory } =
+    useFilterToggle();
 
-  const { queryString, getEachQuery, resetQuery } = useEditQuery();
+  const [queryString] = useRecoilState(atomQueryString);
+  const [isContentVisible] = useRecoilState(atomIsContentVisible);
 
-  const { filterBarData, selectedCategoryData, queryedData } = useGetLandscapes(
-    isSelectedCategory,
-    queryString
-  );
+  const { getEachQuery, resetQuery } = useEditQuery();
+  useGetLandscapes();
 
   const navigate = useNavigate();
 
@@ -36,16 +38,10 @@ export default function FilterListContainer() {
   return (
     <FilterContext.Provider
       value={{
-        isContentVisible,
         handleContentVisible,
         handleContentHide,
         handleCategory,
-        isSelectedCategory,
-        selectedCategoryData,
-        queryString,
         getEachQuery,
-        filterBarData,
-        queryedData,
         resetQuery,
       }}
     >
