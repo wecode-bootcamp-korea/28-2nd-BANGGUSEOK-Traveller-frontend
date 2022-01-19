@@ -9,10 +9,9 @@ const RADIUS = 38;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 const typeStrokeColor = {
-  design: '#df6c4f',
-  usability: '#ecd06f',
-  creativity: '#3cccdb',
-  content: '#1a00aa',
+  sensibility: '#df6c4f',
+  intent_to_visit: '#ecd06f',
+  impresstion_on_picture: '#3cccdb',
 };
 
 export default function RatingCircle({ type, rate, circleId }) {
