@@ -23,7 +23,6 @@ export default function PaginationButtons({
       ? index === 0 || index === 1 || isMiddle
       : index === 0 || index === 1 || isFinalIndex;
   });
-
   return (
     <PaginationWrapper>
       <PaginationContainer>

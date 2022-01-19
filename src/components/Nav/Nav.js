@@ -1,5 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { atomUserToken } from '../atom/commonAtom';
+import { useRecoilState } from 'recoil';
+
+import useScrollbarToggle from './hook/useScrollbarToggle';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -12,19 +17,16 @@ import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import NavSidebar from './NavSidebar';
 import Modal from '../Modal/Modal';
 import KakaoLogin from '../Kakao/KakaoLogin';
-
-import { AuthContext } from '../../Router';
-
 import kakaoLogout from '../Kakao/kakaoLogout';
 
 import './Nav.scss';
-import useScrollbarToggle from './hook/useScrollbarToggle';
 
 export default function Nav() {
-  const { userToken, setUserToken } = useContext(AuthContext);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [userToken, setUserToken] = useRecoilState(atomUserToken);
 
   useScrollbarToggle(isSideBarOpen);
 
@@ -49,7 +51,7 @@ export default function Nav() {
   const logout = () => {
     kakaoLogout();
     localStorage.removeItem('bangguseokToken');
-    setUserToken();
+    setUserToken('');
     alert('로그아웃 되었습니다!');
     navigate('/');
   };

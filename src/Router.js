@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { RecoilRoot } from 'recoil';
+
 import WithNav from './components/NavOutlet/WithNav';
 import WithoutNav from './components/NavOutlet/WithoutNav';
 import Main from './pages/Main/Main';
-import TripDetail from './pages/TripDetail/TripDetail';
 import FilterListContainer from './pages/TripFilterLists/FilterListContainer';
 import NotFound from './components/NotFound/NotFound';
 import KakaoRequest from './components/Kakao/KakaoRequest';
@@ -11,16 +13,14 @@ import KakaoRequest from './components/Kakao/KakaoRequest';
 export const AuthContext = React.createContext();
 
 export default function Router() {
-  const [userToken, setUserToken] = useState('');
-
   return (
-    <AuthContext.Provider value={{ userToken, setUserToken }}>
+    <RecoilRoot>
       <BrowserRouter>
         <Routes>
           <Route element={<WithNav />}>
             <Route path="/" element={<Main />} />
-            <Route path="/filter" element={<FilterListContainer />} />
-            <Route path="/tripdetail/:id" element={<TripDetail />} />
+            <Route path="/winners/*" element={<FilterListContainer />} />
+            <Route path="/nominees/*" element={<FilterListContainer />} />
           </Route>
 
           <Route element={<WithoutNav />}>
@@ -29,6 +29,6 @@ export default function Router() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </AuthContext.Provider>
+    </RecoilRoot>
   );
 }

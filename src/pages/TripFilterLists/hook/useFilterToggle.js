@@ -1,19 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
+
+import {
+  atomIsContentVisible,
+  atomIsSelectedCategory,
+  atomCategories,
+} from '../../../components/atom/filterAtom';
+import { useRecoilState } from 'recoil';
 
 export default function useFilterToggle() {
-  const [isContentVisible, setIsContentVisible] = useState(false);
-  const [isSelectedCategory, setIsSelectedCategory] = useState('');
-  const [categories, setCategories] = useState([]);
+  const [, setIsContentVisible] = useRecoilState(atomIsContentVisible);
+  const [isSelectedCategory, setIsSelectedCategory] = useRecoilState(
+    atomIsSelectedCategory
+  );
+  const [categories, setCategories] = useRecoilState(atomCategories);
 
-  const handleContentVisible = () => {
+  const handleContentVisible = useCallback(() => {
     setIsContentVisible(true);
-  };
+  }, [setIsContentVisible]);
 
-  const handleContentHide = () => {
+  const handleContentHide = useCallback(() => {
     setIsSelectedCategory('');
     setCategories([]);
     setIsContentVisible(false);
-  };
+  }, [setCategories, setIsContentVisible, setIsSelectedCategory]);
 
   const handleCategory = e => {
     const name = e.target.getAttribute('name');
@@ -31,13 +40,11 @@ export default function useFilterToggle() {
 
   useEffect(() => {
     categories.length !== 0 ? handleContentVisible() : handleContentHide();
-  }, [categories.length]);
+  }, [categories.length, handleContentHide, handleContentVisible]);
 
   return {
-    isContentVisible,
     handleContentVisible,
     handleContentHide,
-    isSelectedCategory,
     handleCategory,
   };
 }
