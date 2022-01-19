@@ -20,7 +20,7 @@ export default function Router() {
           <Route element={<WithNav />}>
             <Route path="/" element={<Main />} />
             <Route path="/filter" element={<FilterListContainer />} />
-            <Route path="/tripdetail" element={<TripDetail />} />
+            <Route path="/tripdetail/:id" element={<TripDetail />} />
           </Route>
 
           <Route element={<WithoutNav />}>

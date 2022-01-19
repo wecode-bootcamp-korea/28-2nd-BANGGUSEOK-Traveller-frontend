@@ -8,9 +8,10 @@ import TripDetailVotes from './TripDetailVotes/TripDetailVotes';
 export default function TripDetail() {
   const params = useParams();
   const [detailData, setDetailData] = useState({});
+  const [votesData, setVotesData] = useState();
 
   useEffect(() => {
-    fetch(`http://e4c2-211-106-114-186.ngrok.io/products/16`, {
+    fetch(`http://e4c2-211-106-114-186.ngrok.io/products/${params.id}`, {
       headers: {
         Authorization:
           'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrYWthb19pZCI6MjA3NTI2NzExNn0.wHB8CFA5RYIDVJoayvq_7vrNcC4oblpC9wH1C4GTf2I',
@@ -19,7 +20,7 @@ export default function TripDetail() {
       .then(res => res.json())
       .then(data => {
         setDetailData(data.result);
-        console.log(detailData);
+        setVotesData(data.result.vote_data);
       });
   }, []);
 
@@ -27,7 +28,7 @@ export default function TripDetail() {
     <TripDetailDiv>
       <TripDetailHeader user={detailData.user} />
       <TripDetailBody detailData={detailData} />
-      <TripDetailVotes />
+      <TripDetailVotes votesData={votesData} />
     </TripDetailDiv>
   );
 }
