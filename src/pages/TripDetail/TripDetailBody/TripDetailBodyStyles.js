@@ -9,6 +9,13 @@ const TripDetailBodyDiv = styled.div`
       height: 400px;
       object-fit: cover;
 
+      &:hover {
+        > img {
+          transform: scale(1);
+          filter: brightness(100%);
+        }
+      }
+
       > div {
         display: none;
       }

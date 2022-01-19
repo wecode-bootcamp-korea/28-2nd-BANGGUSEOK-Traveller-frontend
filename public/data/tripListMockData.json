@@ -1,6 +1,6 @@
 [
   {
-    "data": "MAIN",
+    "section": "MAIN",
     "product": {
       "product_name": "Broadwick Live",
       "main_image": "https://media.vlpt.us/images/yukyung/post/135d280f-0822-46ac-b299-951a2b956ef6/XL.jpg?w=640",
@@ -15,7 +15,7 @@
     }
   },
   {
-    "data": "NEW",
+    "section": "NEW",
     "product": [
       {
         "product_id": 1,
@@ -48,7 +48,7 @@
     ]
   },
   {
-    "data": "All",
+    "section": "All",
     "product": [
       {
         "product_id": 5,
