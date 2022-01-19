@@ -3,7 +3,7 @@ import RadiusButton from '../../../../components/Buttons/RadiusButton';
 import VoteCards from './VoteCards/VoteCards';
 import {
   TripDetailBodyDescriptionDiv,
-  TripDetailBodyDescriptionImpresstionOnPicture,
+  TripDetailBodyDescriptionImpressionOnPicture,
   TripDetailBodyDescriptionIntentToVisit,
   TripDetailBodyDescriptionSensibility,
   VoteNow,
@@ -14,46 +14,55 @@ import {
 
 export default function TripDetailBodyDescription({ detailData }) {
   const [voteProgressed, setVoteProgressed] = useState(false);
-  const [firstScore, setFirstScore] = useState(0);
-  const [secondScore, setSecondScore] = useState(0);
-  const [thirdScore, setThirdScore] = useState(0);
+  const [scoreTable, setScoreTable] = useState({
+    sensibility: 0,
+    intent_to_visit: 0,
+    impression_on_picture: 0,
+  });
   const [voteFinished, setVoteFinished] = useState(false);
 
   const handleVaoteStarted = () => {
-    // ToDo : 토큰잇는지 확인하고 없으면 얼럿 분기
+    // todo : 토큰잇는지 확인하고 없으면 얼럿 분기하기
     if (!voteProgressed) setVoteProgressed(true);
   };
 
   const updateIndex = buttonIndex => {
-    if (!firstScore) {
-      setFirstScore(buttonIndex);
+    if (!scoreTable.sensibility) {
+      setScoreTable({ sensibility: buttonIndex });
       return;
     }
-    if (!secondScore) {
-      setSecondScore(buttonIndex);
+    if (!scoreTable.intent_to_visit) {
+      setScoreTable({
+        sensibility: scoreTable.sensibility,
+        intent_to_visit: buttonIndex,
+      });
       return;
     }
-    if (!thirdScore) {
-      setThirdScore(buttonIndex);
+    if (!scoreTable.impression_on_picture) {
+      setScoreTable({
+        sensibility: scoreTable.sensibility,
+        intent_to_visit: scoreTable.intent_to_visit,
+        impression_on_picture: buttonIndex,
+      });
       return;
     }
   };
 
+  // todo : product_id 변수로 설정해서 요청 보내기
   const updateVote = () => {
-    const scores = [
-      { sensibility: firstScore },
-      { intent_to_visit: secondScore },
-      { impresstion_on_picture: thirdScore },
-    ];
-    // todo : 추후 백엔드와 연결할 예정(scores POST)
-    // fetch('http://**.**.*.**:8000/users/signup', {
-    //   method: 'POST',
-    //   body: JSON.stringify(scores),
-    // })
-    //   .then(response => response.json())
-    //   .then(result => {
-    //     console.log('결과: ', result.message);
-    //   });
+    fetch('http://10.58.2.141:8000/votes', {
+      method: 'POST',
+      body: JSON.stringify(scoreTable),
+      // todo : 토큰 불러와서 요청하기
+      // headers: {
+      //   Authorization:
+      //     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjA3NTI2NzExNn0.G4KjibcU52vIVowWHdxx5hnYnI_GNRychwXrXWcsyIw',
+      // },
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (result.message === 'ALREADY_VOTED') alert('이미 투표하셨습니다.');
+      });
     setVoteFinished(true);
   };
 
@@ -68,17 +77,17 @@ export default function TripDetailBodyDescription({ detailData }) {
             >
               {voteFinished ? 'THANK YOU!!!' : 'CONFIRM YOUR VOTE'}
             </VoteNow>
-            {!thirdScore && (
-              <TripDetailBodyDescriptionImpresstionOnPicture>
-                impresstion_on_picture
-              </TripDetailBodyDescriptionImpresstionOnPicture>
+            {!scoreTable.impression_on_picture && (
+              <TripDetailBodyDescriptionImpressionOnPicture>
+                impression_on_picture
+              </TripDetailBodyDescriptionImpressionOnPicture>
             )}
-            {!secondScore && (
+            {!scoreTable.intent_to_visit && (
               <TripDetailBodyDescriptionIntentToVisit>
                 intent_to_visit
               </TripDetailBodyDescriptionIntentToVisit>
             )}
-            {!firstScore && (
+            {!scoreTable.sensibility && (
               <TripDetailBodyDescriptionSensibility>
                 sensibility
               </TripDetailBodyDescriptionSensibility>
@@ -86,7 +95,7 @@ export default function TripDetailBodyDescription({ detailData }) {
             {!voteProgressed && (
               <VoteNow onClick={handleVaoteStarted}>VOTE NOW</VoteNow>
             )}
-            {voteProgressed && !thirdScore && (
+            {voteProgressed && !scoreTable.impression_on_picture && (
               <TripDetailBodyDescriptionVote>
                 <VoteCards updateIndex={updateIndex} />
               </TripDetailBodyDescriptionVote>

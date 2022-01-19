@@ -1,53 +1,5 @@
 [
   {
-    "section": "MAIN",
-    "product": {
-      "product_name": "Broadwick Live",
-      "main_image": "https://media.vlpt.us/images/yukyung/post/135d280f-0822-46ac-b299-951a2b956ef6/XL.jpg?w=640",
-      "created_at": "2022년 1월 17일",
-      "user": "user1",
-      "location": "FRANCE",
-      "score": [
-        { "sensibility": "1.500000" },
-        { "intent_to_visit": "2.500000" },
-        { "impresstion_on_picture": "9.100000" }
-      ]
-    }
-  },
-  {
-    "section": "NEW",
-    "product": [
-      {
-        "product_id": 1,
-        "product_name": "Azzerad Studios",
-        "main_image": "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2021/11/61a601ba764bb211993959.png",
-        "created_at": "2022년 1월 18일",
-        "user": "user2"
-      },
-      {
-        "product_id": 2,
-        "product_name": "Manoverboard",
-        "main_image": "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2021/11/619d568f87750724692920.png",
-        "created_at": "2022년 1월 17일",
-        "user": "user3"
-      },
-      {
-        "product_id": 3,
-        "product_name": "Azzerad Studios",
-        "main_image": "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2021/11/61a601ba764bb211993959.png",
-        "created_at": "2022년 1월 18일",
-        "user": "user2"
-      },
-      {
-        "product_id": 4,
-        "product_name": "Manoverboard",
-        "main_image": "https://assets.awwwards.com/awards/media/cache/optimize/submissions/2021/11/619d568f87750724692920.png",
-        "created_at": "2022년 1월 17일",
-        "user": "user3"
-      }
-    ]
-  },
-  {
     "section": "All",
     "product": [
       {
