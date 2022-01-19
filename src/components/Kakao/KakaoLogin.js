@@ -35,6 +35,6 @@ const KakaoLoginBtn = styled.a`
   display: block;
 `;
 
-const KakaoImg = styled.img`
-  content: url('images/kakao_loginBtn.png');
-`;
+const KakaoImg = styled.img.attrs({
+  src: 'images/kakao_loginBtn.png',
+})``;

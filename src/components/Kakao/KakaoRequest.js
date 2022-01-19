@@ -29,6 +29,7 @@ export default function KakaoRequest() {
   };
 
   const successRoute = () => {
+    alert('환영합니다!');
     navigate('/');
   };
 
@@ -36,7 +37,7 @@ export default function KakaoRequest() {
     Kakao.Auth.setAccessToken(data.access_token);
     try {
       await fetch(
-        `http://9539-211-106-114-186.ngrok.io/users/login/kakao/${userType}`,
+        `${process.env.REACT_APP_BASE_URL}/users/login/kakao/${userType}`,
         {
           headers: { Authorization: data.access_token },
         }

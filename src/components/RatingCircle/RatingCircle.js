@@ -11,7 +11,7 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const typeStrokeColor = {
   sensibility: '#df6c4f',
   intent_to_visit: '#ecd06f',
-  impresstion_on_picture: '#3cccdb',
+  impression_on_picture: '#3cccdb',
 };
 
 export default function RatingCircle({ type, rate, circleId }) {

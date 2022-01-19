@@ -9,6 +9,12 @@
   transform: translateX(0px);
   transition: transform 0.5s ease;
 
+  ~ div,
+  ~ header,
+  ~ footer {
+    transition: transform 0.5s ease;
+  }
+
   &.active,
   &.active ~ div,
   &.active ~ header,
@@ -86,6 +92,7 @@
   &.active ~ div,
   &.active ~ footer {
     transform: translateX(320px);
+    transition: transform 0.5s ease;
   }
 
   .secondNavLeftBox {
@@ -230,6 +237,10 @@
     font-size: 25px;
     font-family: 'Times New Roman', Times, serif;
     font-weight: bolder;
-    cursor: pointer;
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
   }
 }

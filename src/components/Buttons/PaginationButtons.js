@@ -7,19 +7,19 @@ import {
 } from './PaginationButtonsStyle';
 
 export default function PaginationButtons({
-  nowLocation,
+  pageNumber,
   paginateData,
   getEachQuery,
 }) {
-  const isMoreThanFivePaginate = nowLocation >= 5 && paginateData.length > 5;
+  const isMoreThanFivePaginate = pageNumber >= 5 && paginateData.length > 5;
 
   const mappingPaginationData = paginateData.filter((item, index) => {
-    const isMiddle = index + 2 >= nowLocation && index + 2 <= nowLocation + 2;
-    const isFinalIndex = index + 3 >= nowLocation;
+    const isMiddle = index + 2 >= pageNumber && index + 2 <= pageNumber + 2;
+    const isFinalIndex = index + 3 >= pageNumber;
 
-    return nowLocation < 5
+    return pageNumber < 5
       ? index < 5
-      : nowLocation < paginateData.length
+      : pageNumber < paginateData.length
       ? index === 0 || index === 1 || isMiddle
       : index === 0 || index === 1 || isFinalIndex;
   });
@@ -27,7 +27,7 @@ export default function PaginationButtons({
     <PaginationWrapper>
       <PaginationContainer>
         {mappingPaginationData.map((item, index) => {
-          const isActive = nowLocation === item.id;
+          const isActive = pageNumber === item.id;
 
           return isMoreThanFivePaginate ? (
             index === 1 ? (
@@ -55,9 +55,9 @@ export default function PaginationButtons({
         })}
       </PaginationContainer>
       <PaginationContainer>
-        {nowLocation !== paginateData.length ? (
+        {pageNumber !== paginateData.length ? (
           <PaginationNextBtn
-            name={nowLocation + 1}
+            name={pageNumber + 1}
             onClick={e => getEachQuery(e, 'page')}
           >
             SHOW ME MORE

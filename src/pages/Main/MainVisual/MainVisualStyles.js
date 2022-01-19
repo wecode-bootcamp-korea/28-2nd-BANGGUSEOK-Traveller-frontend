@@ -1,4 +1,9 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+const MainVisualLink = styled(Link)`
+  text-decoration: none;
+`;
 
 const MainVisualImg = styled.img`
   position: absolute;
@@ -61,9 +66,12 @@ const MainVisualMainInformation = styled.p`
   font-weight: 300;
 `;
 
-const MainVisualMainInformationStrong = styled.strong``;
+const MainVisualMainInformationStrong = styled.strong`
+  margin: 0 5px;
+`;
 
 const MainVisualMainInformationUserId = styled.strong`
+  margin: 0 5px;
   color: #6dc2b6;
 `;
 
@@ -131,4 +139,5 @@ export {
   MainVisualJuries,
   MainVisualJuriesList,
   MainVisualJury,
+  MainVisualLink,
 };

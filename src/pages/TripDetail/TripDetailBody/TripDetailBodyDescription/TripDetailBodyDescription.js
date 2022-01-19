@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import RadiusButton from '../../../../components/Buttons/RadiusButton';
 import VoteCards from './VoteCards/VoteCards';
 import {
   TripDetailBodyDescriptionDiv,
@@ -12,14 +11,17 @@ import {
   TripDetailBodyDescriptionVote,
   TripDetailBodyDescriptionInfo,
   TripDetailBodyDescriptionTags,
+  TripDetailTagName,
+  TripDetailTagNameWrapper,
+  TripDetailCustomHr,
 } from './TripDetailBodyDescriptionStyles';
+import { useEffect } from 'react/cjs/react.development';
 
-const locationPathObj = {
-  winners: false,
-  nominees: true,
-};
-
-export default function TripDetailBodyDescription({ detailData }) {
+export default function TripDetailBodyDescription({
+  detailData,
+  votesData,
+  setVotesData,
+}) {
   const [voteProgressed, setVoteProgressed] = useState(false);
   const [scoreTable, setScoreTable] = useState({
     sensibility: 0,
@@ -27,13 +29,13 @@ export default function TripDetailBodyDescription({ detailData }) {
     impression_on_picture: 0,
   });
   const [voteFinished, setVoteFinished] = useState(false);
-
   const location = useLocation();
-  const needVotePath = locationPathObj[location.pathname];
-
+  const needVotePath = location.pathname.includes('nominees');
+  const detailId = location.pathname.split('/')[2];
   const handleVaoteStarted = () => {
-    // todo : 토큰잇는지 확인하고 없으면 얼럿 분기하기
-    if (!voteProgressed) setVoteProgressed(true);
+    localStorage.getItem('bangguseokToken') && !voteProgressed
+      ? setVoteProgressed(true)
+      : alert('로그인부터 해주시기 바랍니다!');
   };
 
   const updateIndex = buttonIndex => {
@@ -50,6 +52,7 @@ export default function TripDetailBodyDescription({ detailData }) {
     }
     if (!scoreTable.impression_on_picture) {
       setScoreTable({
+        product_id: detailId,
         sensibility: scoreTable.sensibility,
         intent_to_visit: scoreTable.intent_to_visit,
         impression_on_picture: buttonIndex,
@@ -58,16 +61,13 @@ export default function TripDetailBodyDescription({ detailData }) {
     }
   };
 
-  // todo : product_id 변수로 설정해서 요청 보내기
   const updateVote = () => {
-    fetch('http://10.58.2.141:8000/votes', {
+    fetch(`${process.env.REACT_APP_BASE_URL}/votes`, {
       method: 'POST',
       body: JSON.stringify(scoreTable),
-      // todo : 토큰 불러와서 요청하기
-      // headers: {
-      //   Authorization:
-      //     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjA3NTI2NzExNn0.G4KjibcU52vIVowWHdxx5hnYnI_GNRychwXrXWcsyIw',
-      // },
+      headers: {
+        Authorization: localStorage.getItem('bangguseokToken'),
+      },
     })
       .then(response => response.json())
       .then(result => {
@@ -76,47 +76,61 @@ export default function TripDetailBodyDescription({ detailData }) {
     setVoteFinished(true);
   };
 
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/products/${detailId}`)
+      .then(res => res.json())
+      .then(data => setVotesData(data.result.vote_data));
+  }, [detailId, setVotesData, voteFinished]);
+
   return (
     <TripDetailBodyDescriptionDiv>
       {detailData.tag && (
         <>
-          <div>
-            <VoteNow
-              onClick={updateVote}
-              style={!voteFinished ? { background: '#FF4E4E' } : null}
-            >
-              {voteFinished ? 'THANK YOU!!!' : 'CONFIRM YOUR VOTE'}
-            </VoteNow>
-            {!scoreTable.impression_on_picture && (
-              <TripDetailBodyDescriptionImpressionOnPicture>
-                impression_on_picture
-              </TripDetailBodyDescriptionImpressionOnPicture>
-            )}
-            {!scoreTable.intent_to_visit && (
-              <TripDetailBodyDescriptionIntentToVisit>
-                intent_to_visit
-              </TripDetailBodyDescriptionIntentToVisit>
-            )}
-            {!scoreTable.sensibility && (
-              <TripDetailBodyDescriptionSensibility>
-                sensibility
-              </TripDetailBodyDescriptionSensibility>
-            )}
-            {!voteProgressed && needVotePath && (
-              <VoteNow onClick={handleVaoteStarted}>VOTE NOW</VoteNow>
-            )}
-            {voteProgressed && !scoreTable.impression_on_picture && (
-              <TripDetailBodyDescriptionVote>
-                <VoteCards updateIndex={updateIndex} />
-              </TripDetailBodyDescriptionVote>
-            )}
-          </div>
+          {needVotePath ? (
+            <div>
+              <VoteNow
+                onClick={updateVote}
+                style={!voteFinished ? { background: '#FF4E4E' } : null}
+              >
+                {voteFinished ? 'THANK YOU!!!' : 'CONFIRM YOUR VOTE'}
+              </VoteNow>
+              {!scoreTable.impression_on_picture && (
+                <TripDetailBodyDescriptionImpressionOnPicture>
+                  impression_on_picture
+                </TripDetailBodyDescriptionImpressionOnPicture>
+              )}
+              {!scoreTable.intent_to_visit && (
+                <TripDetailBodyDescriptionIntentToVisit>
+                  intent_to_visit
+                </TripDetailBodyDescriptionIntentToVisit>
+              )}
+              {!scoreTable.sensibility && (
+                <TripDetailBodyDescriptionSensibility>
+                  sensibility
+                </TripDetailBodyDescriptionSensibility>
+              )}
+              {!voteProgressed && (
+                <VoteNow onClick={handleVaoteStarted}>VOTE NOW</VoteNow>
+              )}
+              {voteProgressed && !scoreTable.impression_on_picture && (
+                <TripDetailBodyDescriptionVote>
+                  <VoteCards updateIndex={updateIndex} />
+                </TripDetailBodyDescriptionVote>
+              )}
+            </div>
+          ) : (
+            <TripDetailCustomHr />
+          )}
           <TripDetailBodyDescriptionInfo>
             {detailData.description}
           </TripDetailBodyDescriptionInfo>
           <TripDetailBodyDescriptionTags>
             {detailData.tag.map((singleTag, index) => {
-              return <RadiusButton key={index} buttonType={singleTag} />;
+              return (
+                <TripDetailTagNameWrapper key={`${singleTag}${index}`}>
+                  <TripDetailTagName>{singleTag}</TripDetailTagName>
+                </TripDetailTagNameWrapper>
+              );
             })}
           </TripDetailBodyDescriptionTags>
         </>
