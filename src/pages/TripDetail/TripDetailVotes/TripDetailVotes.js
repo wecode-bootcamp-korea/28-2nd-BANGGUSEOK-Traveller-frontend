@@ -24,40 +24,40 @@ export default function TripDetailVotes({ votesData }) {
           return (
             <li key={voted_user_id}>
               <UserInfoWrapper>
-                <div className="profile">
-                  <img src={voted_user_image} alt="img" />
-                </div>
-                <div className="user">{voted_user_nickname}</div>
+                <Profile>
+                  <Image src={voted_user_image} alt="img" />
+                </Profile>
+                <div>{voted_user_nickname}</div>
               </UserInfoWrapper>
               <Evaluate>
                 <RatingCircleWrapper>
-                  <ul>
-                    <li>
+                  <RatingCircleUl>
+                    <RatingCircleLi>
                       <RatingCircle
                         type="sensibility"
                         rate={vote1 * 10}
                         circleId={voted_user_nickname + 0}
                       />
-                    </li>
-                    <li>
+                    </RatingCircleLi>
+                    <RatingCircleLi>
                       <RatingCircle
                         type="intent_to_visit"
                         rate={vote2 * 10}
                         circleId={voted_user_nickname + 1}
                       />
-                    </li>
-                    <li>
+                    </RatingCircleLi>
+                    <RatingCircleLi>
                       <RatingCircle
                         type="impresstion_on_picture"
                         rate={vote3 * 10}
                         circleId={voted_user_nickname + 2}
                       />
-                    </li>
-                  </ul>
+                    </RatingCircleLi>
+                  </RatingCircleUl>
                 </RatingCircleWrapper>
-                <div className="average">
-                  <span>{score_average}</span>
-                </div>
+                <Score>
+                  <Average>{score_average}</Average>
+                </Score>
               </Evaluate>
             </li>
           );
@@ -79,7 +79,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
+  width: 75%;
   height: 100%;
   background-color: #fcfcfc;
 `;
@@ -112,7 +112,8 @@ const MoreInfo = styled.button`
 `;
 
 const Users = styled.div`
-  width: 80%;
+  text-align: center;
+  width: 75%;
   height: 100%;
   background-color: #fcfcfc;
 
@@ -121,7 +122,7 @@ const Users = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 2px;
-    padding: 5px 30px;
+    padding: 10px 30px;
     border-top: 1px solid #e6eaea;
   }
 `;
@@ -131,44 +132,45 @@ const UserInfoWrapper = styled.div`
   justify-content: center;
   align-items: center;
   font-family: 'apercu', sans-serif;
-
-  .profile {
-    width: 50px;
-    height: 100%;
-    margin-right: 30px;
-
-    img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-  }
 `;
 
-const RatingCircleWrapper = styled.div`
-  ul {
-    display: flex;
+const Image = styled.img`
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+`;
 
-    li {
-      padding: 5px;
-    }
-  }
+const Profile = styled.div`
+  width: 50px;
+  height: 100%;
+  margin-right: 30px;
+`;
+
+const RatingCircleWrapper = styled.div``;
+
+const RatingCircleLi = styled.li`
+  padding: 5px;
+`;
+
+const RatingCircleUl = styled.ul`
+  display: flex;
 `;
 
 const Evaluate = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 40%;
+  width: 30%;
+`;
 
-  .average {
-    flex: 1;
+const Score = styled.div`
+  flex: 1;
+  width: 30px;
+`;
 
-    span {
-      margin-left: 50px;
-      font-size: 25px;
-      font-family: 'apercu', sans-serif;
-    }
-  }
+const Average = styled.span`
+  margin-left: 50px;
+  font-size: 25px;
+  font-family: 'apercu', sans-serif;
 `;
