@@ -24,14 +24,14 @@ export default function TripDetailVotes({ votesData }) {
           return (
             <li key={voted_user_id}>
               <UserInfoWrapper>
-                <div className="profile">
+                <Profile>
                   <img src={voted_user_image} alt="img" />
-                </div>
+                </Profile>
                 <div className="user">{voted_user_nickname}</div>
               </UserInfoWrapper>
               <Evaluate>
                 <RatingCircleWrapper>
-                  <ul>
+                  <RatingCircleUl>
                     <li>
                       <RatingCircle
                         type="sensibility"
@@ -53,7 +53,7 @@ export default function TripDetailVotes({ votesData }) {
                         circleId={voted_user_nickname + 2}
                       />
                     </li>
-                  </ul>
+                  </RatingCircleUl>
                 </RatingCircleWrapper>
                 <div className="average">
                   <span>{score_average}</span>
@@ -132,28 +132,28 @@ const UserInfoWrapper = styled.div`
   align-items: center;
   font-family: 'apercu', sans-serif;
 
-  .profile {
-    width: 50px;
-    height: 100%;
-    margin-right: 30px;
-
-    img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
+  img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
   }
 `;
 
-const RatingCircleWrapper = styled.div`
-  ul {
-    display: flex;
+const Profile = styled.div`
+  width: 50px;
+  height: 100%;
+  margin-right: 30px;
+`;
 
-    li {
-      padding: 5px;
-    }
+const RatingCircleWrapper = styled.div`
+  li {
+    padding: 5px;
   }
+`;
+
+const RatingCircleUl = styled.ul`
+  display: flex;
 `;
 
 const Evaluate = styled.div`
